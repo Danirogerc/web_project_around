@@ -1,24 +1,85 @@
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" href="./page/index.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Alrededor de los estados, mostrando una lista hecha por la gente de lugares interesantes a explorar"
+    />
+    <meta
+      name="keywords"
+      content="Estados Unidos, exploración, viaje, aventura, sitios a visitar, sitios a visitar USA"
+    />
+    <meta name="author" content="danirogerc" />
+    <title>Around project, explorando estados unidos</title>
+    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="page">
+    <section class="popup"></section>
     <section class="header">
       <div class="header__container">
         <img src="./images/header__logo.png" class="header__logo" />
       </div>
     </section>
     <section class="profile">
-      <div class="profile__avatar"></div>
-      <div class="profile__info"></div>
-      <div class="profile__add"></div>
+      <div class="profile__avatar">
+        <img src="./images/profile__avatar.png" class="profile__avatar-img" />
+      </div>
+      <div class="profile__info">
+        <h1 class="profile__title">Jacques Cousteau</h1>
+        <h2 class="profile__subtitle">Explorador</h2>
+      </div>
+      <div class="profile__edit">
+      <button class="profile__edit-button">
+        <img src="./images/Profile__button-edit.png" class="profile__edit-button-img" />
+        </button>
+      </div>
+      </button>
+      <div class="profile__add">
+        <button class="profile__add-button">
+          <img src="./images/Profile__button-add.png" class="profile__add-button-img" />
+        </button>
+      </div>
     </section>
     <section class="elements">
-      <div class="elements__card"></div>
+      <div class="elements__card">
+        <img src="" class="elements__card-image" />
+        <p class="elements__card-text"></p>
+        <button class="elements__card-like"></button>
+      </div>
+      <div class="elements__card">
+        <img src="" class="elements__card-image" />
+        <p class="elements__card-text"></p>
+        <button class="elements__card-like"></button>
+      </div>
+      <div class="elements__card">
+        <img src="" class="elements__card-image" />
+        <p class="elements__card-text"></p>
+        <button class="elements__card-like"></button>
+      </div>
+      <div class="elements__card">
+        <img src="" class="elements__card-image" />
+        <p class="elements__card-text"></p>
+        <button class="elements__card-like"></button>
+      </div>
+      <div class="elements__card">
+        <img src="" class="elements__card-image" />
+        <p class="elements__card-text"></p>
+        <button class="elements__card-like"></button>
+      </div>
+      <div class="elements__card">
+        <img src="" class="elements__card-image" />
+        <p class="elements__card-text"></p>
+        <button class="elements__card-like"></button>
+      </div>
     </section>
     <section class="footer">
-      <div class="footer__copyright"></div>
+      <div class="footer__copyright">
+        <p>© 2021 Around The U.S.</p>
+      </div>
     </section>
+    <script src="./script/script.js"></script>
+    <script src="./script/validate.js"></script>
   </body>
 </html>

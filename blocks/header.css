@@ -1,5 +1,7 @@
-.header__container {
-  margin: 45px 200px auto 200px;
+.header {
+  margin-bottom: 40px;
+  border-bottom: 1px solid #545454;
+  padding-bottom: 41px;
 }
 .header__logo {
   height: 33px;
