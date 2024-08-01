@@ -1,24 +1,28 @@
-# Triple Homeland
+# Tripleten web_project_around
 
-# Triple Art Gallery
-
-Bienvenido al repositorio de la página web para la **Tripleten Art Gallery**
+Bienvenido al repositorio de la página web para la **tripleten web project around**
 
 ## Descripción
 
-Este repositorio contiene el código fuente de la página web oficial de la Tripleten Art Gallery.
+Este repositorio contiene el código fuente de la página del proyecto "web_project_around" del Sprint 7 del Tripleten Software Engineering Bootcamp
 
 ## Características
 
-- **Intrducción**:
-- **Galería**:
-- **Información**:
-- **Contacto y Redes Sociales**: Información para que puedas conectar con nosotros a través de nuestras plataformas digitales.
+- **Popup**: Pop-up donde editar textos y añadir tus propias imágenes al directorio.
+- **Header**: Header con un logo y línea decortaiva.
+- **Profile**: Perfil con posibilidad de añadir y editar textos e imágenes tanto del perfil como tarjetas.
+- **Elements**: Conjunto de tarjetas editables con imágen y texto, formato de directorio.
+- **Footer**: Footer sencillo indicando el año y branding.
 
 ## Tecnologías Utilizadas
 
+- Estuctura BEM, a nivel de clases y organización de archivos
 - HTML5
 - CSS3
+- Media queries para diseño responsivo
+- Flexbox && Grid
+- JavaScript (DOM)
+- Git avanzado y gestión de ramas
 
 ## Estructura del Repositorio
 
@@ -38,7 +42,6 @@ Esta página web ostenta una licencia propia del autor. Se prohíbe su utilizaci
 ## Autor
 
 - **Daniel Roger**
-  https://danirogerc.github.io/web_project_homeland/
   ¡Esperamos que disfrutes explorando y contribuyendo a nuestro proyecto de código!
 
 ---
