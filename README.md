@@ -24,7 +24,10 @@ Este repositorio contiene el código fuente de la página del proyecto "web_proj
 - JavaScript (DOM)
 - Git avanzado y gestión de ramas
 
-## Estructura del Repositorio
+## Diseño
+
+- Figma
+- Link: https://www.figma.com/design/vxxm1ZnAdQiBLoX7xYKY6g/Web_Brief_Sprint_5_ES-%7C-Alrededor-de-los-EEUU-%7C-desktop-%2B-mobile?node-id=0-1&t=0gIOa0Qnuo2zW5Bb-0
 
 ## Cómo Contribuir
 

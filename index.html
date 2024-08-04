@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,19 +12,18 @@
       content="Estados Unidos, exploración, viaje, aventura, sitios a visitar, sitios a visitar USA"
     />
     <meta name="author" content="danirogerc" />
-    <title>Around project, explorando estados unidos</title>
-    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Around project, explorando estados unidos - Sprint 7</title>
+    <link rel="stylesheet" href="/pages/index.css" />
   </head>
   <body class="page">
-    <section class="popup"></section>
     <section class="header">
       <div class="header__container">
-        <img src="./images/header__logo.png" class="header__logo" />
+        <img src="./images/header__logo.png" class="header__logo" alt="Logo de Around the US"/>
       </div>
     </section>
     <section class="profile">
       <div class="profile__avatar">
-        <img src="./images/profile__avatar.png" class="profile__avatar-img" />
+        <img src="./images/profile__avatar.png" class="profile__avatar-img" alt="Foto de perfil de usuario" />
       </div>
       <div class="profile__info">
         <h1 class="profile__title">Jacques Cousteau</h1>
@@ -43,35 +42,41 @@
       </div>
     </section>
     <section class="elements">
-      <div class="elements__card">
-        <img src="" class="elements__card-image" />
-        <p class="elements__card-text"></p>
-        <button class="elements__card-like"></button>
+      <div class="element__template">
+        <div class="element__element">
+            <img class="element__image" src="./images/elements__photo-yosemite.png" alt="Bosque Yosemite">
+            <div class="element__info">
+                <h2 class="element__title">Valle de Yosemite</h2>
+                <img class="element__icono" src="./images/elements__corazon.png" alt="Icono corazon">
+            </div>
+        </div>
       </div>
-      <div class="elements__card">
-        <img src="" class="elements__card-image" />
-        <p class="elements__card-text"></p>
-        <button class="elements__card-like"></button>
+      <div class="element__template">
+        <div class="element__element">
+            <img class="element__image" src="./images/elements__photo-yosemite.png" alt="Bosque Yosemite">
+            <div class="element__info">
+                <h2 class="element__title">Valle de Yosemite</h2>
+                <img class="element__icono" src="./images/elements__corazon.png" alt="Icono corazon">
+            </div>
+        </div>
       </div>
-      <div class="elements__card">
-        <img src="" class="elements__card-image" />
-        <p class="elements__card-text"></p>
-        <button class="elements__card-like"></button>
+      <div class="element__template">
+        <div class="element__element">
+            <img class="element__image" src="./images/elements__photo-yosemite.png" alt="Bosque Yosemite">
+            <div class="element__info">
+                <h2 class="element__title">Valle de Yosemite</h2>
+                <img class="element__icono" src="./images/elements__corazon.png" alt="Icono corazon">
+            </div>
+        </div>
       </div>
-      <div class="elements__card">
-        <img src="" class="elements__card-image" />
-        <p class="elements__card-text"></p>
-        <button class="elements__card-like"></button>
-      </div>
-      <div class="elements__card">
-        <img src="" class="elements__card-image" />
-        <p class="elements__card-text"></p>
-        <button class="elements__card-like"></button>
-      </div>
-      <div class="elements__card">
-        <img src="" class="elements__card-image" />
-        <p class="elements__card-text"></p>
-        <button class="elements__card-like"></button>
+      <div class="element__template">
+        <div class="element__element">
+            <img class="element__image" src="./images/elements__photo-yosemite.png" alt="Bosque Yosemite">
+            <div class="element__info">
+                <h2 class="element__title">Valle de Yosemite</h2>
+                <img class="element__icono" src="./images/elements__corazon.png" alt="Icono corazon">
+            </div>
+        </div>
       </div>
     </section>
     <section class="footer">
@@ -79,7 +84,30 @@
         <p>© 2021 Around The U.S.</p>
       </div>
     </section>
-    <script src="./script/script.js"></script>
-    <script src="./script/validate.js"></script>
+    <section class="popup">
+        <div class="popup__overlay"></div>
+        <div class="popup__container">
+            <h3 class="popup__title">Editar perfil</h3>
+            <form action="" class="popup__form" novalidate>
+                    <input class="popup__input popup__input-name popup__input_type_error" type="text" name="appellative" id="appellative"
+                    minlength="2" maxlength="40" required>
+                    <p class="popup__error popup__error_visible_appellative"></p> 
+                    <input class="popup__input popup__input-work popup__input_type_error" type="text" name="work" id="work"
+                    minlength="2" maxlength="200" required >
+                    <p class="popup__error popup__error_visible_work"></p> 
+                <button class="popup__button-container" type="button" id="saveButton">
+                    <span class="popup__button popup__button_disabled">Save</span> 
+                </button>
+            </form>
+            <img class="popup__close" src="./images/popup__cerrar.png" alt="Cerrar">
+    </div>
+    <div class="modal">
+        <img class="modal__close" src="./images/popup__cerrar.png" alt="Cerrar">
+        <img class="modal__content">
+        <p class="modal__image-name"></p>
+    </div>
+</div>
+    </section>
+    <script src="./script/index.js"></script>
   </body>
 </html>
