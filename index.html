@@ -26,31 +26,29 @@
         <img src="./images/profile__avatar.png" class="profile__avatar-img" alt="Foto de perfil de usuario" />
       </div>
       <div class="profile__info">
-        <h1 class="profile__title">Jacques Cousteau</h1>
+        <div class="profile__name-container">
+          <h1 class="profile__title">Jacques Cousteau</h1>
+          <button class="profile__edit-button">
+            <img src="./images/Profile__button-edit.png" class="profile__edit-button-img" alt="Editar perfil" />
+          </button>
+        </div>
         <h2 class="profile__subtitle">Explorador</h2>
       </div>
-      <div class="profile__edit">
-      <button class="profile__edit-button">
-        <img src="./images/Profile__button-edit.png" class="profile__edit-button-img" />
-        </button>
-      </div>
+      <button class="profile__add-button">
+        <img src="./images/Profile__button-add.png" class="profile__add-button-img" alt="Agregar foto"/>
       </button>
-      <div class="profile__add">
-        <button class="profile__add-button">
-          <img src="./images/Profile__button-add.png" class="profile__add-button-img" />
-        </button>
-      </div>
     </section>
     <section class="elements">
       <template class="element__template">
         <div class="element__element">
-            <img class="element__image" src="./images/elements__photo-yosemite.png" alt="Bosque Yosemite">
+            <img class="element__image" src="" alt="">
             <div class="element__info">
-                <h2 class="element__title">Valle de Yosemite</h2>
+                <h2 class="element__title"></h2>
                 <img class="element__icono" src="./images/elements__corazon.png" alt="Icono corazon">
             </div>
         </div>
       </template>
+    </section>
     <section class="footer">
       <div class="footer__copyright">
         <p>© 2021 Around The U.S.</p>
@@ -80,6 +78,6 @@
     </div>
 </div>
     </section>
-    <script src="./script/index.js"></script>
+    <script type="module" src="./script/index.js"></script>
   </body>
 </html>
