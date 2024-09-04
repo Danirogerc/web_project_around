@@ -1,0 +1,31 @@
+.popup__container {
+  color: #000000;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 35px;
+  width: 365px;
+}
+.popup__input {
+  display: block;
+  width: 358px;
+  font-weight: 400px;
+  font-size: 14px;
+  line-height: 16.94px;
+  margin-bottom: 30px;
+  padding-bottom: 13px;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+}
+.popup__button {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16.94px;
+  color: white;
+}
+.popup__button-container {
+  background-color: #000000;
+  border-radius: 4px;
+  width: 358px;
+  height: 50px;
+}

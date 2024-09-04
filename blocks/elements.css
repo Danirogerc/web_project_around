@@ -32,3 +32,8 @@
   width: 21px;
   height: 19px;
 }
+@media screen and (max-width: 400px) {
+  .elements {
+    grid-template-columns: 1fr;
+  }
+}
