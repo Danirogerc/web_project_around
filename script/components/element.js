@@ -1,3 +1,12 @@
+//Export
+/* 
+1) Exporta la clase Card para que pueda ser utilizada en otros archivos
+2) Recibe data y templateSelector como parámetros
+3) Asigna los valores de data a las propiedades de la clase
+4) Obtiene la plantilla del DOM y la clona
+5) Genera la tarjeta
+6) Añade los event listeners
+*/
 export default class Card {
   constructor(data, templateSelector) {
     this._name = data.name;
@@ -5,6 +14,13 @@ export default class Card {
     this._templateSelector = templateSelector;
   }
 
+  //método getTemplate obtiene la plantilla de la tarjeta del DOM
+  /*
+1) querySelector para encontrar la plantilla
+2) Selecciona el elemento .element__element del DOM
+3) Clona el elemento
+4) Devuelve el elemento clonado
+*/
   _getTemplate() {
     const cardElement = document
       .querySelector(this._templateSelector)
@@ -13,7 +29,13 @@ export default class Card {
 
     return cardElement;
   }
-
+  //método generateCard, genera la tarjeta
+  /*
+1) Obtiene la plantilla llamando a getTemplate
+2) Asigna los valores de data a las propiedades de la clase
+3) Añade los event listeners
+4) Devuelve el elemento clonado
+*/
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
@@ -28,7 +50,5 @@ export default class Card {
     return this._element;
   }
 
-  _setEventListeners() {
-    // Add event listeners here if needed
-  }
+  _setEventListeners() {}
 }
