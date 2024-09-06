@@ -39,10 +39,29 @@
   width: 21px;
   height: 19px;
   cursor: pointer;
+  background-image: url("../images/elements__corazon.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: none;
+  background-color: transparent;
 }
-.element__icono:hover {
+.element__icono_active {
+  width: 21px;
+  height: 19px;
+  cursor: pointer;
+  background-image: url("../images/elements__corazon-active.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: none;
+  background-color: transparent;
+}
+.element__icono:hover,
+.element__icono_active:hover {
   opacity: 0.5;
 }
+
 @media screen and (max-width: 600px) {
   .elements {
     grid-template-columns: 1fr;

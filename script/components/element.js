@@ -29,6 +29,16 @@ export default class Card {
 
     return cardElement;
   }
+
+  _toggleLike() {
+    this._likeButton.classList.toggle("element__icono_active");
+  }
+
+  _setEventListeners() {
+    this._likeButton = this._element.querySelector(".element__icono");
+    this._likeButton.addEventListener("click", () => this._toggleLike());
+  }
+
   //método generateCard, genera la tarjeta
   /*
 1) Obtiene la plantilla llamando a getTemplate
@@ -49,6 +59,4 @@ export default class Card {
 
     return this._element;
   }
-
-  _setEventListeners() {}
 }
