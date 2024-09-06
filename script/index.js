@@ -53,16 +53,47 @@ function renderCards() {
 Escucha el evento DOMContentLoaded para asegurarse de que el DOM está completamente cargado antes de ejecutar la función renderCards()
 */
 document.addEventListener("DOMContentLoaded", renderCards);
-//Seleccionar elementos para el toggle del popup
+
+// Select profile elements
+const profileTitle = document.querySelector(".profile__title");
+const profileSubtitle = document.querySelector(".profile__subtitle");
+
+// Select form elements
+const popupForm = document.querySelector(".popup__form");
+const nameInput = document.querySelector(".popup__input-name");
+const workInput = document.querySelector(".popup__input-work");
+
+// Select popup elements
 const editButton = document.querySelector(".profile__edit-button");
 const popup = document.querySelector(".popup");
 const closePopupButton = document.querySelector(".popup__close");
 
-//Función para abrir y cerrar el popup
-function togglePopup() {
-  popup.classList.toggle("popup_hidden");
+// Function to open popup and fill form with current profile info
+function openPopup() {
+  nameInput.value = profileTitle.textContent;
+  workInput.value = profileSubtitle.textContent;
+  popup.classList.remove("popup_hidden");
 }
 
-//Agregar event listeners a los botones
-editButton.addEventListener("click", togglePopup);
-closePopupButton.addEventListener("click", togglePopup);
+// Function to close popup
+function closePopup() {
+  popup.classList.add("popup_hidden");
+}
+
+// Function to handle form submission
+function handleFormSubmit(event) {
+  event.preventDefault();
+  profileTitle.textContent = nameInput.value;
+  profileSubtitle.textContent = workInput.value;
+  closePopup();
+}
+
+// Event listeners
+document.addEventListener("DOMContentLoaded", renderCards);
+editButton.addEventListener("click", openPopup);
+closePopupButton.addEventListener("click", closePopup);
+popupForm.addEventListener("submit", handleFormSubmit);
+
+// Initialize profile with default values
+profileTitle.textContent = "Jacques Cousteau";
+profileSubtitle.textContent = "Explorador";
