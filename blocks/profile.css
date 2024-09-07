@@ -108,4 +108,7 @@
     font-size: 25px;
     text-align: center;
   }
+  .profile__name-container {
+    width: 90vw;
+  }
 }

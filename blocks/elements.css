@@ -94,5 +94,6 @@
     grid-auto-rows: minmax(361px, auto);
     row-gap: 17px;
     column-gap: 17px;
+    justify-items: center;
   }
 }
