@@ -10,3 +10,10 @@
     margin: 19px auto;
   }
 }
+/* Media query for tablet devices */
+@media screen and (min-width: 601px) and (max-width: 768px) {
+  .page {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
