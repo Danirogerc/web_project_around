@@ -1,62 +1,85 @@
-//Export
-/* 
-1) Exporta la clase Card para que pueda ser utilizada en otros archivos
-2) Recibe data y templateSelector como parámetros
-3) Asigna los valores de data a las propiedades de la clase
-4) Obtiene la plantilla del DOM y la clona
-5) Genera la tarjeta
-6) Añade los event listeners
-*/
+// Imports
+// (None in this file)
+
+// Class definition
+// This class represents a card in our application
 export default class Card {
+  // Constructor
+  // The constructor is called when we create a new Card
+  // It takes two parameters: data (information about the card) and templateSelector (used to find the card template in HTML)
   constructor(data, templateSelector) {
+    // Store the card's name from the data
     this._name = data.name;
+    // Store the card's image link from the data
     this._link = data.link;
+    // Store the template selector for later use
     this._templateSelector = templateSelector;
   }
 
-  //método getTemplate obtiene la plantilla de la tarjeta del DOM
-  /*
-1) querySelector para encontrar la plantilla
-2) Selecciona el elemento .element__element del DOM
-3) Clona el elemento
-4) Devuelve el elemento clonado
-*/
+  // Private methods
+  // This method gets the card template from the HTML
   _getTemplate() {
+    // Find the template in the HTML using the stored selector
     const cardElement = document
       .querySelector(this._templateSelector)
-      .content.querySelector(".element__element")
+      // Get the content of the template
+      .content // Find the main element of the card within the template
+      .querySelector(".element__element")
+      // Create a copy of the template
       .cloneNode(true);
 
+    // Return the copy of the template
     return cardElement;
   }
 
+  // This method handles the like button functionality
   _toggleLike() {
+    // Toggle the 'active' class on the like button
+    // This will typically change its appearance to show it's been liked/unliked
     this._likeButton.classList.toggle("element__icono_active");
   }
 
+  // This method sets up all the event listeners for the card
   _setEventListeners() {
+    // Find the like button within the card element
     this._likeButton = this._element.querySelector(".element__icono");
+    // Add a click event listener to the like button
+    // When clicked, it will call the _toggleLike method
     this._likeButton.addEventListener("click", () => this._toggleLike());
   }
 
-  //método generateCard, genera la tarjeta
-  /*
-1) Obtiene la plantilla llamando a getTemplate
-2) Asigna los valores de data a las propiedades de la clase
-3) Añade los event listeners
-4) Devuelve el elemento clonado
-*/
+  // Public methods
+  // This method creates the card and returns it
   generateCard() {
+    // Get a copy of the card template
     this._element = this._getTemplate();
+    // Set up the event listeners for this card
     this._setEventListeners();
 
+    // Find the image and title elements within the card
     const cardImage = this._element.querySelector(".element__image");
     const cardTitle = this._element.querySelector(".element__title");
 
+    // Set the image source to the card's link
     cardImage.src = this._link;
+    // Set the image alt text to the card's name
     cardImage.alt = this._name;
+    // Set the card's title text
     cardTitle.textContent = this._name;
 
+    // Return the fully formed card element
     return this._element;
   }
 }
+
+// Constants
+// (None in this file)
+
+// DOM elements
+// (None in this file)
+
+// Functions
+// (None outside the class in this file)
+
+// Event listeners
+// (None outside the class in this file)

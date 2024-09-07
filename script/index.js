@@ -1,10 +1,10 @@
-//Imports
-/*Importa una clase "Card"*/
+// Imports
+// We're bringing in the Card and Profile classes we created in other files
 import Card from "./components/cards.js";
-import Profile from "./components/Profile.js";
+import Profile from "./components/profile.js";
 
-// Initial cards data
-/*Este es un array de objetos que contiene la información de las tarjetas*/
+// Constants
+// This is a list of initial cards that will be displayed on the page
 const initialCards = [
   {
     name: "Valle de Yosemite",
@@ -32,23 +32,26 @@ const initialCards = [
   },
 ];
 
-// Function to render cards
-/*
-1) Selecciona el contenedor .elements donde se añadiran las tarjetas
-2) Para cada tarjeta, pasa los datos y el selector para la plantilla
-3) Creo un elemento tarjeta usando el método generateCard()
-4) Añade el elemento tarjeta al contenedor .elements
-*/
-function renderCards() {
-  const cardsContainer = document.querySelector(".elements");
+// DOM elements
+// We're finding the container where we'll put all our cards
+const cardsContainer = document.querySelector(".elements");
 
+// Functions
+// This function creates all the initial cards and adds them to the page
+function renderCards() {
+  // For each card in our initial list...
   initialCards.forEach((cardData) => {
+    // Create a new Card object
     const card = new Card(cardData, ".element__template");
+    // Generate the HTML for the card
     const cardElement = card.generateCard();
+    // Add the card to our page
     cardsContainer.appendChild(cardElement);
   });
 }
+
 // Initialize Profile
+// We're creating a new Profile object with all the selectors it needs
 const profile = new Profile({
   nameSelector: ".profile__title",
   jobSelector: ".profile__subtitle",
@@ -57,60 +60,14 @@ const profile = new Profile({
   formSelector: ".popup__form",
   closeButtonSelector: ".popup__close",
 });
-// Initialize profile with default values
-profile.initialize("Jacques Cousteau", "Explorador");
-
-// Call the function to render cards when the page loads
-document.addEventListener("DOMContentLoaded", () => {
-  renderCards();
-  profile.setEventListeners();
-});
-// Call the function to render cards when the page loads
-/*
-Escucha el evento DOMContentLoaded para asegurarse de que el DOM está completamente cargado antes de ejecutar la función renderCards()
-*/
-document.addEventListener("DOMContentLoaded", renderCards);
-
-// Select profile elements
-const profileTitle = document.querySelector(".profile__title");
-const profileSubtitle = document.querySelector(".profile__subtitle");
-
-// Select form elements
-const popupForm = document.querySelector(".popup__form");
-const nameInput = document.querySelector(".popup__input-name");
-const workInput = document.querySelector(".popup__input-work");
-
-// Select popup elements
-const editButton = document.querySelector(".profile__edit-button");
-const popup = document.querySelector(".popup");
-const closePopupButton = document.querySelector(".popup__close");
-
-// Function to open popup and fill form with current profile info
-function openPopup() {
-  nameInput.value = profileTitle.textContent;
-  workInput.value = profileSubtitle.textContent;
-  popup.classList.remove("popup_hidden");
-}
-
-// Function to close popup
-function closePopup() {
-  popup.classList.add("popup_hidden");
-}
-
-// Function to handle form submission
-function handleFormSubmit(event) {
-  event.preventDefault();
-  profileTitle.textContent = nameInput.value;
-  profileSubtitle.textContent = workInput.value;
-  closePopup();
-}
 
 // Event listeners
-document.addEventListener("DOMContentLoaded", renderCards);
-editButton.addEventListener("click", openPopup);
-closePopupButton.addEventListener("click", closePopup);
-popupForm.addEventListener("submit", handleFormSubmit);
-
-// Initialize profile with default values
-profileTitle.textContent = "Jacques Cousteau";
-profileSubtitle.textContent = "Explorador";
+// This code runs when the page is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  // Create all the initial cards
+  renderCards();
+  // Set up the event listeners for the profile
+  profile.setEventListeners();
+  // Set the initial profile information
+  profile.initialize("Jacques Cousteau", "Explorador");
+});
