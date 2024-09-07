@@ -14,66 +14,133 @@
     <meta name="author" content="danirogerc" />
     <title>Around project, explorando estados unidos - Sprint 7</title>
     <link rel="stylesheet" href="/pages/index.css" />
+    <!-- Consider adding a favicon -->
+    <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
   </head>
   <body class="page">
-    <section class="header">
+    <!-- Header Section -->
+    <header class="header">
       <div class="header__container">
-        <img src="./images/header__logo.png" class="header__logo" alt="Logo de Around the US"/>
+        <img
+          src="./images/header__logo.png"
+          class="header__logo"
+          alt="Logo de Around the US"
+        />
       </div>
-    </section>
-    <section class="profile">
-      <div class="profile__avatar">
-        <img src="./images/profile__avatar.png" class="profile__avatar-img" alt="Foto de perfil de usuario" />
-      </div>
-      <div class="profile__info">
-        <div class="profile__name-container">
-          <h1 class="profile__title">Jacques Cousteau</h1>
-          <button class="profile__edit-button">
-            <img src="./images/Profile__button-edit.png" class="profile__edit-button-img" alt="Editar perfil" />
-          </button>
+    </header>
+
+    <main>
+      <!-- Profile Section -->
+      <section class="profile">
+        <div class="profile__avatar">
+          <img
+            src="./images/profile__avatar.png"
+            class="profile__avatar-img"
+            alt="Foto de perfil de usuario"
+          />
         </div>
-        <h2 class="profile__subtitle">Explorador</h2>
-      </div>
-      <button class="profile__add-button">
-        <img src="./images/Profile__button-add.png" class="profile__add-button-img" alt="Agregar foto"/>
-      </button>
-    </section>
-    <section class="elements">
-      <template class="element__template">
-        <div class="element__element">
-            <img class="element__image" src="" alt="">
+        <div class="profile__info">
+          <div class="profile__name-container">
+            <h1 class="profile__title">Jacques Cousteau</h1>
+            <button
+              type="button"
+              class="profile__edit-button"
+              aria-label="Editar perfil"
+            >
+              <img
+                src="./images/Profile__button-edit.png"
+                class="profile__edit-button-img"
+                alt="Editar perfil"
+              />
+            </button>
+          </div>
+          <p class="profile__subtitle">Explorador</p>
+        </div>
+        <button
+          type="button"
+          class="profile__add-button"
+          aria-label="Agregar foto"
+        >
+          <img
+            src="./images/Profile__button-add.png"
+            class="profile__add-button-img"
+            alt="Agregar foto"
+          />
+        </button>
+      </section>
+
+      <!-- Card Gallery Section -->
+      <section class="elements">
+        <!-- Card Template -->
+        <template class="element__template">
+          <article class="element__element">
+            <img class="element__image" src="" alt="" />
             <div class="element__info">
-                <h2 class="element__title"></h2>
-                <button class="element__icono" type="button" aria-label="Like"></button>
+              <h2 class="element__title"></h2>
+              <button
+                class="element__icono"
+                type="button"
+                aria-label="Like"
+              ></button>
             </div>
-        </div>
-      </template>
-    </section>
-    <section class="footer">
-      <div class="footer__copyright">
-        <p>© 2024 Around The U.S.</p>
-      </div>
-    </section>
-    <section class="popup popup_hidden">
+          </article>
+        </template>
+      </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2024 Around The U.S.</p>
+    </footer>
+
+    <!-- Popup for Profile Editing -->
+    <div class="popup popup_hidden">
       <div class="popup__overlay"></div>
-      <div class="popup__container">
-          <h3 class="popup__title">Editar perfil</h3>
-          <form action="" class="popup__form" novalidate>
-                  <input class="popup__input popup__input-name popup__input_type_error" type="text" name="appellative" id="appellative"
-                  minlength="2" maxlength="40" placeholder="Nombre" required>
-                  <p class="popup__error popup__error_visible_appellative"></p> 
-                  <input class="popup__input popup__input-work popup__input_type_error" type="text" name="work" id="work"
-                  minlength="2" maxlength="200" placeholder="Acerca de mí" required >
-                  <p class="popup__error popup__error_visible_work"></p> 
-              <button class="popup__button-container" type="submit" id="saveButton">
-                  <span class="popup__button">Guardar</span> 
-              </button>
-          </form>
-          <button class="popup__close" type="button" id="closeButton">
-            <img class="popup__close-img" src="./images/popup__cerrar.png" alt="Cerrar"></button>
-  </div>
-</div>
-    </section>
+      <div class="popup__container" role="dialog" aria-labelledby="popup-title">
+        <h3 class="popup__title" id="popup-title">Editar perfil</h3>
+        <form class="popup__form" novalidate>
+          <input
+            class="popup__input popup__input-name popup__input_type_error"
+            type="text"
+            name="appellative"
+            id="appellative"
+            minlength="2"
+            maxlength="40"
+            placeholder="Nombre"
+            required
+          />
+          <p class="popup__error popup__error_visible_appellative"></p>
+          <input
+            class="popup__input popup__input-work popup__input_type_error"
+            type="text"
+            name="work"
+            id="work"
+            minlength="2"
+            maxlength="200"
+            placeholder="Acerca de mí"
+            required
+          />
+          <p class="popup__error popup__error_visible_work"></p>
+          <button class="popup__button-container" type="submit" id="saveButton">
+            <span class="popup__button">Guardar</span>
+          </button>
+        </form>
+        <button
+          class="popup__close"
+          type="button"
+          id="closeButton"
+          aria-label="Cerrar"
+        >
+          <img
+            class="popup__close-img"
+            src="./images/popup__cerrar.png"
+            alt="Cerrar"
+          />
+        </button>
+      </div>
+    </div>
+
+    <!-- JavaScript Module -->
     <script type="module" src="./script/index.js"></script>
   </body>
 </html>
