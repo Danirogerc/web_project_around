@@ -1,6 +1,7 @@
 //Imports
 /*Importa una clase "Card"*/
-import Card from "./components/element.js";
+import Card from "./components/cards.js";
+import Profile from "./components/Profile.js";
 
 // Initial cards data
 /*Este es un array de objetos que contiene la información de las tarjetas*/
@@ -47,7 +48,23 @@ function renderCards() {
     cardsContainer.appendChild(cardElement);
   });
 }
+// Initialize Profile
+const profile = new Profile({
+  nameSelector: ".profile__title",
+  jobSelector: ".profile__subtitle",
+  editButtonSelector: ".profile__edit-button",
+  popupSelector: ".popup",
+  formSelector: ".popup__form",
+  closeButtonSelector: ".popup__close",
+});
+// Initialize profile with default values
+profile.initialize("Jacques Cousteau", "Explorador");
 
+// Call the function to render cards when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+  renderCards();
+  profile.setEventListeners();
+});
 // Call the function to render cards when the page loads
 /*
 Escucha el evento DOMContentLoaded para asegurarse de que el DOM está completamente cargado antes de ejecutar la función renderCards()
