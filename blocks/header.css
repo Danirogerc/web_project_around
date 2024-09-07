@@ -1,14 +1,19 @@
+/* Main header container */
 .header {
   margin-bottom: 40px;
-  border-bottom: 1px solid #545454;
+  border-bottom: 1px solid #545454; /* Adds a line at the bottom of the header */
   padding-bottom: 41px;
 }
+
+/* Logo styling */
 .header__logo {
   height: 33px;
   width: 173px;
 }
+
+/* Responsive styles for smaller screens */
 @media screen and (max-width: 600px) {
   .header__logo {
-    margin-left: 20px;
+    margin-left: 20px; /* Adds some space on the left for mobile screens */
   }
 }

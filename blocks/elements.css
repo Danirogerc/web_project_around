@@ -1,11 +1,12 @@
+/* Main container for elements */
 .elements {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: minmax(361px, auto);
-  row-gap: 17px;
-  column-gap: 17px;
+  gap: 17px; /* Combines row-gap and column-gap */
 }
 
+/* Individual element card */
 .element__element {
   background-color: #ffffff;
   border-radius: 10px;
@@ -13,21 +14,24 @@
   height: 361px;
 }
 
+/* Element image */
 .element__image {
-  width: 282px;
+  width: 100%;
   height: 282px;
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 10px 10px 0 0;
   background-color: black;
+  object-fit: cover; /* Ensures image covers the area without distortion */
 }
 
+/* Element information container */
 .element__info {
   display: flex;
-  padding-left: 21px;
-  padding-right: 15px;
   justify-content: space-between;
   align-items: center;
+  padding: 0 15px 0 21px;
 }
 
+/* Element title */
 .element__title {
   color: #000000;
   max-width: 250px;
@@ -35,37 +39,42 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.element__icono {
-  width: 21px;
-  height: 19px;
-  cursor: pointer;
-  background-image: url("../images/elements__corazon.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  border: none;
-  background-color: transparent;
-}
+
+/* Base styles for icon buttons */
+.element__icono,
 .element__icono_active {
   width: 21px;
   height: 19px;
   cursor: pointer;
-  background-image: url("../images/elements__corazon-active.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
   border: none;
   background-color: transparent;
+  transition: opacity 0.3s ease; /* Smooth transition for hover effect */
 }
+
+/* Inactive icon */
+.element__icono {
+  background-image: url("../images/elements__corazon.png");
+}
+
+/* Active icon */
+.element__icono_active {
+  background-image: url("../images/elements__corazon-active.png");
+}
+
+/* Hover effect for icons */
 .element__icono:hover,
 .element__icono_active:hover {
   opacity: 0.5;
 }
 
+/* Media query for mobile devices */
 @media screen and (max-width: 600px) {
   .elements {
     grid-template-columns: 1fr;
-    row-gap: 20px;
+    gap: 20px;
     justify-items: center;
   }
 
@@ -75,8 +84,6 @@
   }
 
   .element__image {
-    width: 100%;
-    height: auto;
     aspect-ratio: 1 / 1;
   }
 }
