@@ -37,17 +37,26 @@ const initialCards = [
 const cardsContainer = document.querySelector(".elements");
 
 // Functions
-// This function creates all the initial cards and adds them to the page
-function renderCards() {
-  // For each card in our initial list...
-  initialCards.forEach((cardData) => {
-    // Create a new Card object
-    const card = new Card(cardData, ".element__template");
-    // Generate the HTML for the card
-    const cardElement = card.generateCard();
-    // Add the card to our page
-    cardsContainer.appendChild(cardElement);
-  });
+// This function removes a card from the page when the delete button is clicked
+function handleDeleteCard(cardElement) {
+  // We use the remove() method to delete the card from the webpage
+  cardElement.remove();
+}
+
+// This function creates a new card and adds it to the page
+function renderCard(cardData) {
+  // We create a new Card object using the data, template, and delete function
+  const card = new Card(cardData, ".element__template", handleDeleteCard);
+  // We generate the card's HTML
+  const cardElement = card.generateCard();
+  // We add the new card to the beginning of our cards container
+  cardsContainer.prepend(cardElement);
+}
+
+// This function creates all the initial cards when the page loads
+function renderInitialCards() {
+  // We go through each card in our initialCards list
+  initialCards.forEach((cardData) => renderCard(cardData));
 }
 
 // Initialize Profile
@@ -65,7 +74,7 @@ const profile = new Profile({
 // This code runs when the page is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   // Create all the initial cards
-  renderCards();
+  renderInitialCards();
   // Set up the event listeners for the profile
   profile.setEventListeners();
   // Set the initial profile information

@@ -6,14 +6,15 @@
 export default class Card {
   // Constructor
   // The constructor is called when we create a new Card
-  // It takes two parameters: data (information about the card) and templateSelector (used to find the card template in HTML)
-  constructor(data, templateSelector) {
+  // It takes three parameters: data (information about the card) and templateSelector (used to find the card template in HTML)
+  constructor(data, templateSelector, handleDeleteCard) {
     // Store the card's name from the data
     this._name = data.name;
     // Store the card's image link from the data
     this._link = data.link;
     // Store the template selector for later use
     this._templateSelector = templateSelector;
+    this._handleDeleteCard = handleDeleteCard;
   }
 
   // Private methods
@@ -46,6 +47,12 @@ export default class Card {
     // Add a click event listener to the like button
     // When clicked, it will call the _toggleLike method
     this._likeButton.addEventListener("click", () => this._toggleLike());
+
+    // Add this block
+    this._deleteButton = this._element.querySelector(".element__delete");
+    this._deleteButton.addEventListener("click", () => {
+      this._handleDeleteCard(this._element);
+    });
   }
 
   // Public methods
