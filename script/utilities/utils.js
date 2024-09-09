@@ -1,5 +1,5 @@
 //Functions to be imported
-import Card from "../utilities/cards.js";
+import Card from "../components/cards.js";
 
 //Functions to open and close popups
 export function openPopup(popup) {
@@ -9,25 +9,20 @@ export function closePopup(popup) {
   popup.classList.add("popup_hidden");
 }
 //Function to render one card
-export function renderCard(
-  cardData,
-  cardContainer,
-  templateSelector,
-  handleDeleteCard,
-) {
-  const card = new Card(cardData, templateSelector, handleDeleteCard);
+export function renderCard(cardData, containerSelector, templateSelector) {
+  const container = document.querySelector(containerSelector);
+  const card = new Card(cardData, templateSelector);
   const cardElement = card.generateCard();
-  cardContainer.prepend(cardElement);
+  container.prepend(cardElement);
 }
 
 //Function to render the initial cards
 export function renderInitialCards(
-  cardData,
-  cardContainer,
+  initialCards,
+  containerSelector,
   templateSelector,
-  handleDeleteCard,
 ) {
-  cardData.forEach((card) => {
-    renderCard(card, cardContainer, templateSelector, handleDeleteCard);
-  });
+  initialCards.forEach((cardData) =>
+    renderCard(cardData, containerSelector, templateSelector),
+  );
 }
