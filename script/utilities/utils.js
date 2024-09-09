@@ -9,9 +9,14 @@ export function closePopup(popup) {
   popup.classList.add("popup_hidden");
 }
 //Function to render one card
-export function renderCard(cardData, containerSelector, templateSelector) {
+export function renderCard(
+  cardData,
+  containerSelector,
+  templateSelector,
+  handleDeleteCard,
+) {
   const container = document.querySelector(containerSelector);
-  const card = new Card(cardData, templateSelector);
+  const card = new Card(cardData, templateSelector, handleDeleteCard);
   const cardElement = card.generateCard();
   container.prepend(cardElement);
 }

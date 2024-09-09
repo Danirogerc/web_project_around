@@ -110,5 +110,6 @@
   }
   .profile__name-container {
     width: 90vw;
+    justify-content: center;
   }
 }

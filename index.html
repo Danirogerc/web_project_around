@@ -98,12 +98,12 @@
       <p class="footer__copyright">&copy; 2024 Around The U.S.</p>
     </footer>
 
-    <!-- Popup for Profile Editing -->
-    <div class="popup popup_hidden popup__type_edit">
+    <!-- Popup for Edit Profile -->
+    <div class="popup popup_type_edit popup_hidden">
       <div class="popup__overlay"></div>
       <div class="popup__container" role="dialog" aria-labelledby="popup-title">
         <h3 class="popup__title" id="popup-title">Editar perfil</h3>
-        <form class="popup__form" novalidate>
+        <form class="popup__form popup__form_type_edit" novalidate>
           <input
             class="popup__input popup__input-name popup__input_type_error"
             type="text"
@@ -131,7 +131,7 @@
           </button>
         </form>
         <button
-          class="popup__close"
+          class="popup__close popup__close_type_edit"
           type="button"
           id="closeButton"
           aria-label="Cerrar"
@@ -144,40 +144,38 @@
         </button>
       </div>
     </div>
-    <!-- Popup for Profile Adding -->
-    <div class="popup popup__type_add">
+    <!-- Popup for Adding New Card -->
+    <div class="popup popup_type_add popup_hidden">
       <div class="popup__overlay"></div>
       <div class="popup__container" role="dialog" aria-labelledby="popup-title">
         <h3 class="popup__title" id="popup-title">Nuevo lugar</h3>
-        <form class="popup__form" novalidate>
+        <form class="popup__form popup__form_type_add" novalidate>
           <input
             class="popup__input popup__input-name popup__input_type_error"
             type="text"
-            name="appellative"
-            id="appellative"
+            name="cardTitle"
+            id="cardTitle"
             minlength="2"
             maxlength="40"
-            placeholder="Nombre"
+            placeholder="Título"
             required
           />
-          <p class="popup__error popup__error_visible_appellative"></p>
+          <p class="popup__error popup__error_visible_cardTitle"></p>
           <input
-            class="popup__input popup__input-work popup__input_type_error"
-            type="text"
-            name="work"
-            id="work"
-            minlength="2"
-            maxlength="300"
+            class="popup__input popup__input-link popup__input_type_error"
+            type="url"
+            name="cardLink"
+            id="cardLink"
             placeholder="Enlace a la imagen"
             required
           />
-          <p class="popup__error popup__error_visible_work"></p>
+          <p class="popup__error popup__error_visible_cardLink"></p>
           <button class="popup__button-container" type="submit" id="saveButton">
-            <span class="popup__button">Añadir</span>
+            <span class="popup__button">Crear</span>
           </button>
         </form>
         <button
-          class="popup__close"
+          class="popup__close popup__close_type_add"
           type="button"
           id="closeButton"
           aria-label="Cerrar"
