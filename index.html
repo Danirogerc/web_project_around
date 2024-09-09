@@ -144,6 +144,52 @@
         </button>
       </div>
     </div>
+    <!-- Popup for Profile Adding -->
+    <div class="popup">
+      <div class="popup__overlay"></div>
+      <div class="popup__container" role="dialog" aria-labelledby="popup-title">
+        <h3 class="popup__title" id="popup-title">Nuevo lugar</h3>
+        <form class="popup__form" novalidate>
+          <input
+            class="popup__input popup__input-name popup__input_type_error"
+            type="text"
+            name="appellative"
+            id="appellative"
+            minlength="2"
+            maxlength="40"
+            placeholder="Nombre"
+            required
+          />
+          <p class="popup__error popup__error_visible_appellative"></p>
+          <input
+            class="popup__input popup__input-work popup__input_type_error"
+            type="text"
+            name="work"
+            id="work"
+            minlength="2"
+            maxlength="300"
+            placeholder="Enlace a la imagen"
+            required
+          />
+          <p class="popup__error popup__error_visible_work"></p>
+          <button class="popup__button-container" type="submit" id="saveButton">
+            <span class="popup__button">Añadir</span>
+          </button>
+        </form>
+        <button
+          class="popup__close"
+          type="button"
+          id="closeButton"
+          aria-label="Cerrar"
+        >
+          <img
+            class="popup__close-img"
+            src="./images/popup__cerrar.png"
+            alt="Cerrar"
+          />
+        </button>
+      </div>
+    </div>
 
     <!-- JavaScript Module -->
     <script type="module" src="./script/index.js"></script>
