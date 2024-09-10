@@ -58,19 +58,15 @@ function createCard(cardData) {
 
 // Event listeners
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOM fully loaded and parsed");
-
   const addCardButton = document.querySelector(".profile__add-button");
-  console.log("Add Card Button:", addCardButton);
-
   const addCardPopup = document.querySelector(".popup_type_add");
-  console.log("Add Card Popup:", addCardPopup);
+  const closeAddPopupButton = document.querySelector(".popup__close_type_add");
 
-  if (addCardButton && addCardPopup) {
-    addCardButton.addEventListener("click", () => {
-      console.log("Add button clicked");
-      openPopup(addCardPopup);
-    });
+  if (addCardButton && addCardPopup && closeAddPopupButton) {
+    addCardButton.addEventListener("click", () => openPopup(addCardPopup));
+    closeAddPopupButton.addEventListener("click", () =>
+      closePopup(addCardPopup),
+    );
   } else {
     console.error("Add button or popup not found");
   }
