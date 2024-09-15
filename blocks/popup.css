@@ -92,3 +92,18 @@
   opacity: 0;
   pointer-events: none;
 }
+
+@media screen and (max-width: 600px) {
+  .popup__close {
+    top: -36px;
+    right: 0;
+    width: 25px;
+    height: 25px;
+  }
+  .popup__input {
+    width: 100%;
+  }
+  .popup__button-container {
+    width: 100%;
+  }
+}
