@@ -1,4 +1,3 @@
-import Card from "./components/cards.js";
 import Profile from "./components/profile.js";
 import {
   renderInitialCards,
@@ -24,17 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
     cardElement.remove();
   }
 
-  // Function to create a new card
-  function createCard(cardData) {
-    const card = new Card(cardData, ".element__template", handleDeleteCard);
-    return card.generateCard();
-  }
-
   // Event listeners
   const addCardButton = document.querySelector(".profile__add-button");
   const addCardPopup = document.querySelector(".popup_type_add");
   const addCardForm = addCardPopup.querySelector(".popup__form");
-  const cardContainer = document.querySelector(".elements");
   const closeAddPopupButton = addCardPopup.querySelector(
     ".popup__close_type_add",
   );
@@ -54,17 +46,18 @@ document.addEventListener("DOMContentLoaded", () => {
       name: titleInput.value,
       link: linkInput.value,
     };
-    const cardElement = createCard(newCard);
-    cardContainer.prepend(cardElement);
+    renderCard(newCard, ".elements", ".element__template", handleDeleteCard);
     closePopup(addCardPopup);
     addCardForm.reset();
   });
 
   // Render initial cards
-  initialCards.forEach((cardData) => {
-    const cardElement = createCard(cardData);
-    cardContainer.append(cardElement);
-  });
+  renderInitialCards(
+    initialCards,
+    ".elements",
+    ".element__template",
+    handleDeleteCard,
+  );
 
   // Set up profile
   profile.setEventListeners();

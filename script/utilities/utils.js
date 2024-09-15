@@ -19,6 +19,7 @@ export function renderCard(
   const card = new Card(cardData, templateSelector, handleDeleteCard);
   const cardElement = card.generateCard();
   container.prepend(cardElement);
+  return cardElement; // Return the created card element
 }
 
 //Function to render the initial cards
@@ -26,8 +27,9 @@ export function renderInitialCards(
   initialCards,
   containerSelector,
   templateSelector,
+  handleDeleteCard,
 ) {
   initialCards.forEach((cardData) =>
-    renderCard(cardData, containerSelector, templateSelector),
+    renderCard(cardData, containerSelector, templateSelector, handleDeleteCard),
   );
 }
