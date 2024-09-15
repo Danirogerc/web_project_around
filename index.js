@@ -1,10 +1,10 @@
-import Profile from "./components/profile.js";
+import Profile from "./blocks/profile/profile.js";
 import {
   renderInitialCards,
   renderCard,
   openPopup,
   closePopup,
-} from "./utilities/utils.js";
+} from "./utils/utils.js";
 import { initialCards } from "./data/config.js";
 
 document.addEventListener("DOMContentLoaded", () => {

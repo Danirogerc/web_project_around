@@ -4,7 +4,7 @@ Bienvenido al repositorio de la página web para la **tripleten web project arou
 
 ## Descripción
 
-Este repositorio contiene el código fuente de la página del proyecto "web_project_around" del Sprint 7 del Tripleten Software Engineering Bootcamp
+Este repositorio contiene el código fuente de la página del proyecto "web_project_around" del Sprint 8 del Tripleten Software Engineering Bootcamp
 
 ## Características
 
@@ -21,7 +21,7 @@ Este repositorio contiene el código fuente de la página del proyecto "web_proj
 - CSS3
 - Media queries para diseño responsivo
 - Flexbox && Grid
-- JavaScript (DOM)
+- JavaScript Avanzado
 - Git avanzado y gestión de ramas
 
 ## Diseño

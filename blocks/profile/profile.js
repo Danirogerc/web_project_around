@@ -1,4 +1,4 @@
-import { openPopup, closePopup } from "../utilities/utils.js";
+import { openPopup, closePopup } from "../../utils/utils.js";
 
 // Profile class: handles user profile display and updates
 export default class Profile {
