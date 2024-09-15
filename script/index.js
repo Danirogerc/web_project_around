@@ -57,22 +57,49 @@ function createCard(cardData) {
 }
 
 // Event listeners
+//Waiting fot the HTML DOM to be loaded before running any code
 document.addEventListener("DOMContentLoaded", () => {
+  //Save elements as constants
   const addCardButton = document.querySelector(".profile__add-button");
   const addCardPopup = document.querySelector(".popup_type_add");
-  const closeAddPopupButton = document.querySelector(".popup__close_type_add");
+  const addCardForm = addCardPopup.querySelector(".popup__form");
+  const cardContainer = document.querySelector(".elements");
+  const closeAddPopupButton = addCardPopup.querySelector(
+    ".popup__close_type_add",
+  );
 
-  if (addCardButton && addCardPopup && closeAddPopupButton) {
-    addCardButton.addEventListener("click", () => openPopup(addCardPopup));
-    closeAddPopupButton.addEventListener("click", () =>
-      closePopup(addCardPopup),
-    );
-  } else {
-    console.error("Add button or popup not found");
-  }
+  // Remove any existing event listeners for this button
+  closeAddPopupButton.removeEventListener("click", closePopup);
+
+  // Add a new event listener
+  closeAddPopupButton.addEventListener("click", () => {
+    closePopup(addCardPopup);
+  });
+
+  // Open add card popup
+  addCardButton.addEventListener("click", () => openPopup(addCardPopup));
+
+  // Close add card popup
+  closeAddPopupButton.addEventListener("click", () => closePopup(addCardPopup));
+
+  //listen for when the add card form is submitted
+  addCardForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const titleInput = addCardForm.querySelector(".popup__input-name");
+    const linkInput = addCardForm.querySelector(".popup__input-link");
+    const newCard = {
+      name: titleInput.value,
+      link: linkInput.value,
+    };
+    //add the new card to the array of all cards
+    initialCards.push(newCard);
+    const cardElement = createCard(newCard);
+    cardContainer.prepend(cardElement); // Add it to the top of the card list
+    closePopup(addCardPopup); // Close the popup
+    addCardForm.reset();
+  });
 
   // Render initial cards
-  const cardContainer = document.querySelector(".elements");
   initialCards.forEach((cardData) => {
     const cardElement = createCard(cardData);
     cardContainer.append(cardElement);
