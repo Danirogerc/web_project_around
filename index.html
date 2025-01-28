@@ -105,28 +105,32 @@
         <h3 class="popup__title" id="popup-title">Editar perfil</h3>
         <form class="popup__form popup__form_type_edit" novalidate>
           <input
-            class="popup__input popup__input-name popup__input_type_error"
+            class="popup__input popup__input-name"
             type="text"
-            name="appellative"
-            id="appellative"
+            name="name-input"
+            placeholder="Nombre"
             minlength="2"
             maxlength="40"
-            placeholder="Nombre"
             required
           />
-          <p class="popup__error popup__error_visible_appellative"></p>
+          <span class="popup__error popup__error_type_name"
+            >El nombre debe tener entre 2 y 40 caracteres.</span
+          >
+
           <input
-            class="popup__input popup__input-work popup__input_type_error"
+            class="popup__input popup__input-work"
             type="text"
-            name="work"
-            id="work"
+            name="work-input"
+            placeholder="Acerca de mí"
             minlength="2"
             maxlength="200"
-            placeholder="Acerca de mí"
             required
           />
-          <p class="popup__error popup__error_visible_work"></p>
-          <button class="popup__button-container" type="submit" id="saveButton">
+          <span class="popup__error popup__error_type_work"
+            >La ocupación debe tener entre 2 y 200 caracteres.</span
+          >
+
+          <button class="popup__button-container" type="submit">
             <span class="popup__button">Guardar</span>
           </button>
         </form>
@@ -151,7 +155,7 @@
         <h3 class="popup__title" id="popup-title">Nuevo lugar</h3>
         <form class="popup__form popup__form_type_add" novalidate>
           <input
-            class="popup__input popup__input-name popup__input_type_error"
+            class="popup__input popup__input-name"
             type="text"
             name="cardTitle"
             id="cardTitle"
@@ -162,7 +166,7 @@
           />
           <p class="popup__error popup__error_visible_cardTitle"></p>
           <input
-            class="popup__input popup__input-link popup__input_type_error"
+            class="popup__input popup__input-link"
             type="url"
             name="cardLink"
             id="cardLink"

@@ -6,6 +6,7 @@ import {
   closePopup,
 } from "./utils/utils.js";
 import { initialCards } from "./data/config.js";
+import { enableValidation } from "./utils/validate.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize Profile
@@ -28,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const addCardPopup = document.querySelector(".popup_type_add");
   const addCardForm = addCardPopup.querySelector(".popup__form");
   const closeAddPopupButton = addCardPopup.querySelector(
-    ".popup__close_type_add",
+    ".popup__close_type_add"
   );
 
   // Open add card popup
@@ -56,10 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
     initialCards,
     ".elements",
     ".element__template",
-    handleDeleteCard,
+    handleDeleteCard
   );
 
   // Set up profile
   profile.setEventListeners();
   profile.initialize("Jacques Cousteau", "Explorador");
+
+  // Enable form validation
+  enableValidation();
 });
