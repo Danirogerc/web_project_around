@@ -105,27 +105,27 @@
         <h3 class="popup__title" id="popup-title">Editar perfil</h3>
         <form class="popup__form popup__form_type_edit" novalidate>
           <input
-            class="popup__input popup__input-name popup__input_type_error"
+            class="popup__input popup__input-name"
             type="text"
             name="appellative"
             id="appellative"
-            minlength="2"
-            maxlength="40"
+            minlength="1"
+            maxlength="50"
             placeholder="Nombre"
             required
           />
-          <p class="popup__error popup__error_visible_appellative"></p>
+          <span class="popup__error popup__error_visible_appellative"></span>
           <input
-            class="popup__input popup__input-work popup__input_type_error"
+            class="popup__input popup__input-work"
             type="text"
             name="work"
             id="work"
-            minlength="2"
-            maxlength="200"
+            minlength="1"
+            maxlength="250"
             placeholder="Acerca de mí"
             required
           />
-          <p class="popup__error popup__error_visible_work"></p>
+          <span class="popup__error popup__error_visible_work"></span>
           <button class="popup__button-container" type="submit" id="saveButton">
             <span class="popup__button">Guardar</span>
           </button>
@@ -160,7 +160,7 @@
             placeholder="Título"
             required
           />
-          <p class="popup__error popup__error_visible_cardTitle"></p>
+          <span class="popup__error popup__error_visible_cardTitle"></span>
           <input
             class="popup__input popup__input-link popup__input_type_error"
             type="url"
@@ -169,7 +169,7 @@
             placeholder="Enlace a la imagen"
             required
           />
-          <p class="popup__error popup__error_visible_cardLink"></p>
+          <span class="popup__error popup__error_visible_cardLink"></span>
           <button class="popup__button-container" type="submit" id="saveButton">
             <span class="popup__button">Crear</span>
           </button>
