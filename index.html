@@ -107,25 +107,19 @@
           <input
             class="popup__input popup__input-name"
             type="text"
-            name="appellative"
-            id="appellative"
-            minlength="1"
-            maxlength="50"
+            name="name"
             placeholder="Nombre"
             required
           />
-          <span class="popup__error popup__error_visible_appellative"></span>
+          <span class="popup__error popup__error_type_name"></span>
           <input
             class="popup__input popup__input-work"
             type="text"
             name="work"
-            id="work"
-            minlength="1"
-            maxlength="250"
             placeholder="Acerca de mí"
             required
           />
-          <span class="popup__error popup__error_visible_work"></span>
+          <span class="popup__error popup__error_type_work"></span>
           <button class="popup__button-container" type="submit" id="saveButton">
             <span class="popup__button">Guardar</span>
           </button>
@@ -151,7 +145,7 @@
         <h3 class="popup__title" id="popup-title">Nuevo lugar</h3>
         <form class="popup__form popup__form_type_add" novalidate>
           <input
-            class="popup__input popup__input-name popup__input_type_error"
+            class="popup__input popup__input-name"
             type="text"
             name="cardTitle"
             id="cardTitle"
@@ -162,7 +156,7 @@
           />
           <span class="popup__error popup__error_visible_cardTitle"></span>
           <input
-            class="popup__input popup__input-link popup__input_type_error"
+            class="popup__input popup__input-link"
             type="url"
             name="cardLink"
             id="cardLink"

@@ -8,13 +8,15 @@ export function enableValidation() {
 
   // 2. Function to show error messages
   const showInputError = (inputElement, errorMessage) => {
-    // Find the error span element that corresponds to this input
+    // Find error element using input's name
     const errorElement = profileForm.querySelector(
       `.popup__error_type_${inputElement.name}`
     );
+
     // Add error styling to input
     inputElement.classList.add("popup__input_type_error");
     inputElement.style.borderBottomColor = "#FF0000";
+
     // Show error message if error element exists
     if (errorElement) {
       errorElement.textContent = errorMessage;
@@ -25,13 +27,14 @@ export function enableValidation() {
 
   // 3. Function to hide error messages
   const hideInputError = (inputElement) => {
-    // Find the error span element
     const errorElement = profileForm.querySelector(
       `.popup__error_type_${inputElement.name}`
     );
+
     // Remove error styling from input
     inputElement.classList.remove("popup__input_type_error");
     inputElement.style.borderBottomColor = "";
+
     // Hide error message
     if (errorElement) {
       errorElement.textContent = "";
@@ -41,13 +44,14 @@ export function enableValidation() {
 
   // 4. Function to check if input is valid
   const checkInputValidity = (inputElement) => {
+    console.log("Checking validity for:", inputElement.name);
+
     // Check if input is empty
     if (!inputElement.value) {
       showInputError(inputElement, "Este campo es obligatorio.");
       return false;
     }
 
-    // Validate name input
     if (inputElement.classList.contains("popup__input-name")) {
       if (inputElement.value.length < 2) {
         showInputError(
@@ -90,6 +94,8 @@ export function enableValidation() {
     // Check both inputs
     const isNameValid = checkInputValidity(nameInput);
     const isWorkValid = checkInputValidity(workInput);
+
+    console.log("Validation state:", { isNameValid, isWorkValid });
 
     // Enable/disable button based on validation results
     if (isNameValid && isWorkValid) {
