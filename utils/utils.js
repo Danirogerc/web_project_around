@@ -36,7 +36,7 @@ function handleOverlayClick(evt) {
   }
 }
 
-//Function to render one card
+//Function render one card
 export function renderCard(
   cardData,
   containerSelector,
