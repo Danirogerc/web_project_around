@@ -31,6 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeAddPopupButton = addCardPopup.querySelector(
     ".popup__close_type_add"
   );
+  const imagePopup = document.querySelector(".popup_type_image");
+  const imagePopupCloseButton = imagePopup.querySelector(
+    ".popup__close_type_image"
+  );
 
   // Open add card popup
   addCardButton.addEventListener("click", () => openPopup(addCardPopup));
@@ -67,3 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //enable validation
 enableValidation();
+
+//Close image popup
+imagePopupCloseButton.addEventListener("click", () => {
+  closePopup(imagePopup);
+});

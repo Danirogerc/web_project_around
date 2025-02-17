@@ -1,3 +1,5 @@
+import { openPopup, closePopup } from "../../utils/utils.js";
+
 // This class represents a card in our application
 export default class Card {
   // Set up the card with its data and functionality
@@ -6,6 +8,15 @@ export default class Card {
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._handleDeleteCard = handleDeleteCard;
+    // Get popup elements once during initialization
+    this._imagePopup = document.querySelector(".popup_type_image");
+    this._popupImage = this._imagePopup.querySelector(".popup__image");
+    this._popupCaption = this._imagePopup.querySelector(
+      ".popup__image-caption"
+    );
+    this._closeButton = this._imagePopup.querySelector(
+      ".popup__close_type_image"
+    );
   }
 
   // Get the card template from HTML
@@ -25,6 +36,17 @@ export default class Card {
 
   // Set up event listeners for the card
   _setEventListeners() {
+    // Add image click handler
+    const cardImage = this._element.querySelector(".element__image");
+    cardImage.addEventListener("click", () => {
+      this._handleImageClick();
+    });
+
+    // Add close button listener
+    this._closeButton.addEventListener("click", () => {
+      closePopup(this._imagePopup);
+    });
+
     this._likeButton = this._element.querySelector(".element__icono");
     this._likeButton.addEventListener("click", () => this._toggleLike());
 
@@ -32,6 +54,13 @@ export default class Card {
     this._deleteButton.addEventListener("click", () => {
       this._handleDeleteCard(this._element);
     });
+  }
+
+  _handleImageClick() {
+    this._popupImage.src = this._link;
+    this._popupImage.alt = this._name;
+    this._popupCaption.textContent = this._name;
+    openPopup(this._imagePopup);
   }
 
   // Create and return the card element
