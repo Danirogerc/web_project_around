@@ -1,15 +1,15 @@
 //Functions to be imported
-import Card from "../blocks/card/cards.js";
+import { Card } from "../blocks/card/cards.js";
 
 //Functions to open and close popups
-export function openPopup(popup) {
+function openPopup(popup) {
   popup.classList.remove("popup_hidden");
   // Add event listeners when opening popup
   document.addEventListener("keydown", handleEscClose);
   document.addEventListener("mousedown", handleOverlayClick);
 }
 
-export function closePopup(popup) {
+function closePopup(popup) {
   popup.classList.add("popup_hidden");
   // Remove event listeners when closing popup
   document.removeEventListener("keydown", handleEscClose);
@@ -37,7 +37,7 @@ function handleOverlayClick(evt) {
 }
 
 //Function render one card
-export function renderCard(
+function renderCard(
   cardData,
   containerSelector,
   templateSelector,
@@ -51,7 +51,7 @@ export function renderCard(
 }
 
 //Function to render the initial cards
-export function renderInitialCards(
+function renderInitialCards(
   initialCards,
   containerSelector,
   templateSelector,
@@ -61,3 +61,6 @@ export function renderInitialCards(
     renderCard(cardData, containerSelector, templateSelector, handleDeleteCard)
   );
 }
+
+//exports
+export { openPopup, closePopup, renderInitialCards, renderCard };

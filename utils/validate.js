@@ -1,4 +1,4 @@
-export function enableValidation() {
+function enableValidation() {
   // 1. Forms validation - Profile form validation
   const profileForm = document.querySelector(".popup__form_type_edit");
   const nameInput = profileForm.querySelector(".popup__input-name");
@@ -170,3 +170,5 @@ export function enableValidation() {
     setupFormValidation(addCardForm, [titleInput, linkInput], saveButtonAdd);
   }
 }
+
+export { enableValidation };

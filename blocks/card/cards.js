@@ -1,7 +1,7 @@
 import { openPopup, closePopup } from "../../utils/utils.js";
 
-// This class represents a card in our application
-export default class Card {
+// Class Card
+class Card {
   // Set up the card with its data and functionality
   constructor(data, templateSelector, handleDeleteCard) {
     this._name = data.name;
@@ -78,7 +78,8 @@ export default class Card {
     return this._element;
   }
 }
-
+//exports
+export { Card };
 // Constants
 // (None in this file)
 

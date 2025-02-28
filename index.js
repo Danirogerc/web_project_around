@@ -1,4 +1,4 @@
-import Profile from "./blocks/profile/profile.js";
+import { Profile } from "./blocks/profile/profile.js";
 import {
   renderInitialCards,
   renderCard,

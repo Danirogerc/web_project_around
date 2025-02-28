@@ -1,4 +1,4 @@
-export const initialCards = [
+const initialCards = [
   {
     name: "Valle de Yosemite",
     link: "./images/elements__photo-yosemite.png",
@@ -24,3 +24,5 @@ export const initialCards = [
     link: "./images/elements__photo-braies.png",
   },
 ];
+
+export { initialCards };

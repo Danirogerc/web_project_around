@@ -1,7 +1,7 @@
 import { openPopup, closePopup } from "../../utils/utils.js";
 
 // Profile class: handles user profile display and updates
-export default class Profile {
+class Profile {
   // Set up the profile
   constructor(selectors) {
     this._selectors = selectors;
@@ -47,7 +47,7 @@ export default class Profile {
     this._editButton.addEventListener("click", () => this._handleEditClick());
     this._closeButton.addEventListener("click", () => this._handleCloseClick());
     this._form.addEventListener("submit", (event) =>
-      this._handleFormSubmit(event),
+      this._handleFormSubmit(event)
     );
   }
 
@@ -70,7 +70,8 @@ export default class Profile {
     closePopup(this._popup);
   }
 }
-
+//exports
+export { Profile };
 // Constants
 // (None in this file)
 
