@@ -1,174 +1,189 @@
-function enableValidation() {
-  // 1. Forms validation - Profile form validation
-  const profileForm = document.querySelector(".popup__form_type_edit");
-  const nameInput = profileForm.querySelector(".popup__input-name");
-  const workInput = profileForm.querySelector(".popup__input-work");
-  const saveButtonProfile = profileForm.querySelector(
-    ".popup__button-container"
-  );
-
-  // Add Card Form Validation
-  const addCardForm = document.querySelector(".popup__form_type_add");
-  const titleInput = addCardForm?.querySelector(".popup__input-name");
-  const linkInput = addCardForm?.querySelector(".popup__input-link");
-  const saveButtonAdd = addCardForm?.querySelector(".popup__button-container");
-
-  // 2. Function to show error messages
-  const showInputError = (formElement, inputElement, errorMessage) => {
-    const errorElement = formElement.querySelector(
-      `.popup__error_type_${inputElement.name}`
+class FormValidator {
+  constructor(config, formElement) {
+    this.config = config;
+    this.formElement = formElement;
+    this.inputs = Array.from(
+      this.formElement.querySelectorAll(this.config.inputSelector)
     );
+    this.submitButton = this.formElement.querySelector(
+      this.config.submitButtonSelector
+    );
+  }
+
+  enableValidation() {
+    this.#setupEventListeners();
+    this.#toggleButtonState();
+  }
+
+  #setupEventListeners() {
+    this.inputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        this.#checkInputValidity(input);
+        this.#toggleButtonState();
+      });
+    });
+
+    this.formElement.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      if (this.#isFormValid()) {
+        // Form submission logic here
+      }
+    });
+  }
+
+  #checkInputValidity(inputElement) {
+    if (!inputElement.value) {
+      this.#showInputError(inputElement, "Este campo es obligatorio.");
+      return false;
+    }
+
+    // Apply specific validation rules based on input name
+    const validationRules =
+      this.config.validationRules?.[inputElement.name] || [];
+    const isValid = validationRules.every((rule) => rule(inputElement.value));
+
+    if (isValid) {
+      this.#hideInputError(inputElement);
+      return true;
+    } else {
+      const errorMessage = this.#getErrorMessage(inputElement);
+      this.#showInputError(inputElement, errorMessage);
+      return false;
+    }
+  }
+
+  #isFormValid() {
+    return this.inputs.every((input) => this.#checkInputValidity(input));
+  }
+
+  #showInputError(inputElement, errorMessage) {
+    const errorElement = this.formElement.querySelector(
+      `.${this.config.errorClass}_type_${inputElement.name}`
+    );
+
     // Add error styling to input
-    inputElement.classList.add("popup__input_type_error");
+    inputElement.classList.add(this.config.inputErrorClass);
     inputElement.style.borderBottomColor = "#FF0000";
+
     // Show error message if error element exists
     if (errorElement) {
       errorElement.textContent = errorMessage;
       errorElement.style.display = "block";
       errorElement.style.color = "#FF0000";
     }
-  };
-  // 3. Function to hide error messages
-  const hideInputError = (formElement, inputElement) => {
-    const errorElement = formElement.querySelector(
-      `.popup__error_type_${inputElement.name}`
+  }
+
+  #hideInputError(inputElement) {
+    const errorElement = this.formElement.querySelector(
+      `.${this.config.errorClass}_type_${inputElement.name}`
     );
+
     // Remove error styling from input
-    inputElement.classList.remove("popup__input_type_error");
+    inputElement.classList.remove(this.config.inputErrorClass);
     inputElement.style.borderBottomColor = "";
+
     // Hide error message
     if (errorElement) {
       errorElement.textContent = "";
       errorElement.style.display = "none";
     }
-  };
-  // 4. function to check url validity
-  const isValidUrl = (url) => {
+  }
+
+  #getErrorMessage(inputElement) {
+    const value = inputElement.value;
+
+    // Profile form validations
+    if (this.config.formType === "profile") {
+      if (inputElement.name === "name") {
+        if (value.length < 2) {
+          return "El nombre debe tener al menos 2 caracteres.";
+        } else if (value.length > 40) {
+          return "El nombre no puede tener más de 40 caracteres.";
+        }
+      } else if (inputElement.name === "work") {
+        if (value.length < 2) {
+          return "La ocupación debe tener al menos 2 caracteres.";
+        } else if (value.length > 200) {
+          return "La ocupación no puede tener más de 200 caracteres.";
+        }
+      }
+    }
+
+    // Add card form validations
+    if (this.config.formType === "addCard") {
+      if (inputElement.name === "title") {
+        if (value.length < 2) {
+          return "El título debe tener al menos 2 caracteres.";
+        } else if (value.length > 30) {
+          return "El título no puede tener más de 30 caracteres.";
+        }
+      } else if (inputElement.name === "link") {
+        if (!this.#isValidUrl(value)) {
+          return "Por favor, introduzca una URL válida.";
+        }
+      }
+    }
+
+    return "Campo inválido";
+  }
+
+  #isValidUrl(url) {
     try {
       new URL(url);
       return true;
     } catch (e) {
       return false;
     }
-  };
-  // 5. Function to check if input is valid
-  const checkInputValidity = (formElement, inputElement) => {
-    if (!inputElement.value) {
-      showInputError(formElement, inputElement, "Este campo es obligatorio.");
-      return false;
-    }
+  }
 
-    // Profile form validations
-    if (formElement === profileForm) {
-      if (inputElement === nameInput) {
-        if (inputElement.value.length < 2) {
-          showInputError(
-            formElement,
-            inputElement,
-            "El nombre debe tener al menos 2 caracteres."
-          );
-          return false;
-        } else if (inputElement.value.length > 40) {
-          showInputError(
-            formElement,
-            inputElement,
-            "El nombre no puede tener más de 40 caracteres."
-          );
-          return false;
-        }
-      } else if (inputElement === workInput) {
-        if (inputElement.value.length < 2) {
-          showInputError(
-            formElement,
-            inputElement,
-            "La ocupación debe tener al menos 2 caracteres."
-          );
-          return false;
-        } else if (inputElement.value.length > 200) {
-          showInputError(
-            formElement,
-            inputElement,
-            "La ocupación no puede tener más de 200 caracteres."
-          );
-          return false;
-        }
-      }
-    }
-    // Add card form validations
-    if (formElement === addCardForm) {
-      if (inputElement === titleInput) {
-        if (inputElement.value.length < 2) {
-          showInputError(
-            formElement,
-            inputElement,
-            "El título debe tener al menos 2 caracteres."
-          );
-          return false;
-        } else if (inputElement.value.length > 30) {
-          showInputError(
-            formElement,
-            inputElement,
-            "El título no puede tener más de 30 caracteres."
-          );
-          return false;
-        }
-      } else if (inputElement === linkInput) {
-        if (!isValidUrl(inputElement.value)) {
-          showInputError(
-            formElement,
-            inputElement,
-            "Por favor, introduzca una URL válida."
-          );
-          return false;
-        }
-      }
-    }
-    hideInputError(formElement, inputElement);
-    return true;
-  };
-
-  const toggleButtonState = (formElement, inputs, buttonElement) => {
-    const isValid = inputs.every((input) =>
-      checkInputValidity(formElement, input)
+  #toggleButtonState() {
+    const isValid = this.inputs.every((input) =>
+      this.#checkInputValidity(input)
     );
 
     if (isValid) {
-      buttonElement.disabled = false;
-      buttonElement.classList.remove("popup__button_disabled");
+      this.submitButton.disabled = false;
+      this.submitButton.classList.remove(this.config.buttonDisabledClass);
     } else {
-      buttonElement.disabled = true;
-      buttonElement.classList.add("popup__button_disabled");
+      this.submitButton.disabled = true;
+      this.submitButton.classList.add(this.config.buttonDisabledClass);
     }
-  };
-
-  // Set up form validation
-  const setupFormValidation = (formElement, inputs, buttonElement) => {
-    if (!formElement) return;
-
-    inputs.forEach((inputElement) => {
-      inputElement.addEventListener("input", () => {
-        checkInputValidity(formElement, inputElement);
-        toggleButtonState(formElement, inputs, buttonElement);
-      });
-    });
-    formElement.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-      if (inputs.every((input) => checkInputValidity(formElement, input))) {
-        // Form submission logic here
-      }
-    });
-
-    // Initial validation
-    toggleButtonState(formElement, inputs, buttonElement);
-  };
-
-  // Initialize both forms
-  if (profileForm) {
-    setupFormValidation(profileForm, [nameInput, workInput], saveButtonProfile);
-  }
-  if (addCardForm) {
-    setupFormValidation(addCardForm, [titleInput, linkInput], saveButtonAdd);
   }
 }
 
-export { enableValidation };
+// Configuration objects for different form types
+const profileFormConfig = {
+  formType: "profile",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button-container",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error",
+  buttonDisabledClass: "popup__button_disabled",
+};
+
+const addCardFormConfig = {
+  formType: "addCard",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button-container",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error",
+  buttonDisabledClass: "popup__button_disabled",
+};
+
+function enableValidation() {
+  // Profile form validation
+  const profileForm = document.querySelector(".popup__form_type_edit");
+  if (profileForm) {
+    const profileValidator = new FormValidator(profileFormConfig, profileForm);
+    profileValidator.enableValidation();
+  }
+
+  // Add Card form validation
+  const addCardForm = document.querySelector(".popup__form_type_add");
+  if (addCardForm) {
+    const addCardValidator = new FormValidator(addCardFormConfig, addCardForm);
+    addCardValidator.enableValidation();
+  }
+}
+
+export { enableValidation, FormValidator };

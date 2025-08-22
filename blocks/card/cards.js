@@ -3,6 +3,7 @@ import { openPopup, closePopup } from "../../utils/utils.js";
 // Class Card
 class Card {
   // Set up the card with its data and functionality
+  // metodos privados
   constructor(data, templateSelector, handleDeleteCard) {
     this._name = data.name;
     this._link = data.link;
@@ -64,6 +65,7 @@ class Card {
   }
 
   // Create and return the card element
+  // public method
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
