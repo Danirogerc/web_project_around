@@ -5,7 +5,7 @@ import {
   openPopup,
   closePopup,
 } from "./utils/utils.js";
-import { enableValidation } from "./utils/validate.js";
+import { enableValidation } from "./utils/FormValidator.js";
 import { initialCards } from "./data/config.js";
 
 document.addEventListener("DOMContentLoaded", () => {
