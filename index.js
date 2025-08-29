@@ -5,8 +5,9 @@ import {
   openPopup,
   closePopup,
 } from "./utils/utils.js";
-import { enableValidation } from "./utils/FormValidator.js";
+import { FormValidator } from "./utils/FormValidator.js";
 import { initialCards } from "./data/config.js";
+import { Card } from "./blocks/card/card.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize Profile
