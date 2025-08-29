@@ -1,5 +1,5 @@
 //Functions to be imported
-import { Card } from "../blocks/card/cards.js";
+import { Card } from "../blocks/card/card.js";
 
 //Functions to open and close popups
 function openPopup(popup) {
