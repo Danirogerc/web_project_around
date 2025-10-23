@@ -1,4 +1,4 @@
-import { Profile } from "./blocks/profile/profile.js";
+import { Profile } from "./components/profile/profile.js";
 import {
   renderInitialCards,
   renderCard,
@@ -7,7 +7,8 @@ import {
 } from "./utils/utils.js";
 import { FormValidator } from "./utils/FormValidator.js";
 import { initialCards } from "./data/config.js";
-import { Card } from "./blocks/card/card.js";
+import { Card } from "./components/card/card.js";
+import { Section } from "./components/section/Section.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize Profile
