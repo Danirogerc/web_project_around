@@ -1,14 +1,9 @@
 import { Profile } from "./components/profile/profile.js";
-import {
-  renderInitialCards,
-  renderCard,
-  openPopup,
-  closePopup,
-} from "./utils/utils.js";
+import { openPopup, closePopup } from "./utils/utils.js";
 import { FormValidator } from "./utils/FormValidator.js";
 import { initialCards } from "./data/config.js";
 import { Card } from "./components/card/card.js";
-import { Section } from "./components/section/Section.js";
+import { Section } from "./components/section/section.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize Profile
@@ -25,7 +20,19 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleDeleteCard(cardElement) {
     cardElement.remove();
   }
-
+  // Renderer function for Section class
+  function createCardElement(cardData) {
+    const card = new Card(cardData, ".element__template", handleDeleteCard);
+    return card.generateCard();
+  }
+  // Initialize Section for cards
+  const cardSection = new Section(
+    {
+      items: initialCards,
+      renderer: createCardElement,
+    },
+    ".elements"
+  );
   // Event listeners
   const addCardButton = document.querySelector(".profile__add-button");
   const addCardPopup = document.querySelector(".popup_type_add");
@@ -53,18 +60,13 @@ document.addEventListener("DOMContentLoaded", () => {
       name: titleInput.value,
       link: linkInput.value,
     };
-    renderCard(newCard, ".elements", ".element__template", handleDeleteCard);
+    cardSection.addItem(newCard);
     closePopup(addCardPopup);
     addCardForm.reset();
   });
 
-  // Render initial cards
-  renderInitialCards(
-    initialCards,
-    ".elements",
-    ".element__template",
-    handleDeleteCard
-  );
+  // Render initial cards using Section
+  cardSection.renderItems();
 
   // Set up profile
   profile.setEventListeners();

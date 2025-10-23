@@ -36,31 +36,5 @@ function handleOverlayClick(evt) {
   }
 }
 
-//Function render one card
-function renderCard(
-  cardData,
-  containerSelector,
-  templateSelector,
-  handleDeleteCard
-) {
-  const container = document.querySelector(containerSelector);
-  const card = new Card(cardData, templateSelector, handleDeleteCard);
-  const cardElement = card.generateCard();
-  container.prepend(cardElement);
-  return cardElement; // Return the created card element
-}
-
-//Function to render the initial cards
-function renderInitialCards(
-  initialCards,
-  containerSelector,
-  templateSelector,
-  handleDeleteCard
-) {
-  initialCards.forEach((cardData) =>
-    renderCard(cardData, containerSelector, templateSelector, handleDeleteCard)
-  );
-}
-
 //exports
-export { openPopup, closePopup, renderInitialCards, renderCard };
+export { openPopup, closePopup };
