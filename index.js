@@ -1,11 +1,12 @@
 import { Profile } from "./components/profile/profile.js";
-import { openPopup, closePopup } from "./utils/utils.js";
-import { FormValidator } from "./utils/FormValidator.js";
+import { Popup } from "./components/popup/popup.js";
 import { initialCards } from "./data/config.js";
 import { Card } from "./components/card/card.js";
 import { Section } from "./components/section/section.js";
+import { FormValidator, enableValidation } from "./utils/FormValidator.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM loaded"); //Debug check
   // Initialize Profile
   const profile = new Profile({
     nameSelector: ".profile__title",
@@ -20,11 +21,22 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleDeleteCard(cardElement) {
     cardElement.remove();
   }
-  // Renderer function for Section class
+
+  //CREATE POPUP INSTANCES
+  const addCardPopupInstance = new Popup(".popup_type_add");
+  const imagePopupInstance = new Popup(".popup_type_image");
+
+  //CREATE THE RENDERER FUNCTION
   function createCardElement(cardData) {
-    const card = new Card(cardData, ".element__template", handleDeleteCard);
+    const card = new Card(
+      cardData,
+      ".element__template",
+      handleDeleteCard,
+      imagePopupInstance
+    );
     return card.generateCard();
   }
+
   // Initialize Section for cards
   const cardSection = new Section(
     {
@@ -33,35 +45,41 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     ".elements"
   );
+
   // Event listeners
   const addCardButton = document.querySelector(".profile__add-button");
-  const addCardPopup = document.querySelector(".popup_type_add");
-  const addCardForm = addCardPopup.querySelector(".popup__form");
-  const closeAddPopupButton = addCardPopup.querySelector(
-    ".popup__close_type_add"
-  );
-  const imagePopup = document.querySelector(".popup_type_image");
-  const imagePopupCloseButton = imagePopup.querySelector(
-    ".popup__close_type_image"
-  );
+  const addCardForm = document.querySelector(".popup__form_type_add");
 
   // Open add card popup
-  addCardButton.addEventListener("click", () => openPopup(addCardPopup));
-
-  // Close add card popup
-  closeAddPopupButton.addEventListener("click", () => closePopup(addCardPopup));
+  addCardButton.addEventListener("click", () => addCardPopupInstance.open());
 
   // Add card form submission
   addCardForm.addEventListener("submit", (event) => {
     event.preventDefault();
+
+    // Check if form is valid before proceeding
     const titleInput = addCardForm.querySelector(".popup__input-name");
     const linkInput = addCardForm.querySelector(".popup__input-link");
+
+    // Don't submit if inputs are empty or invalid
+    if (!titleInput.value.trim() || !linkInput.value.trim()) {
+      return; // Stop here if validation fails
+    }
+
+    // Additional check: verify URL is valid
+    try {
+      new URL(linkInput.value);
+    } catch (e) {
+      return; // Stop here if URL is invalid
+    }
+
+    // Only proceed if validation passes
     const newCard = {
       name: titleInput.value,
       link: linkInput.value,
     };
     cardSection.addItem(newCard);
-    closePopup(addCardPopup);
+    addCardPopupInstance.close();
     addCardForm.reset();
   });
 
@@ -69,14 +87,12 @@ document.addEventListener("DOMContentLoaded", () => {
   cardSection.renderItems();
 
   // Set up profile
-  profile.setEventListeners();
   profile.initialize("Jacques Cousteau", "Explorador");
-});
 
-//enable validation
-enableValidation();
+  // Set up popup event listeners
+  addCardPopupInstance.setEventListeners();
+  imagePopupInstance.setEventListeners();
 
-//Close image popup
-imagePopupCloseButton.addEventListener("click", () => {
-  closePopup(imagePopup);
+  //enable validation
+  enableValidation();
 });

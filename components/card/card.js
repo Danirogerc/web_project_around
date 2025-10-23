@@ -1,23 +1,15 @@
-import { openPopup, closePopup } from "../../utils/utils.js";
-
 // Class Card
+// Set up the card with its data and functionality
+// metodos privados
 class Card {
-  // Set up the card with its data and functionality
-  // metodos privados
-  constructor(data, templateSelector, handleDeleteCard) {
+  constructor(data, templateSelector, handleDeleteCard, imagePopupInstance) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._handleDeleteCard = handleDeleteCard;
-    // Get popup elements once during initialization
-    this._imagePopup = document.querySelector(".popup_type_image");
-    this._popupImage = this._imagePopup.querySelector(".popup__image");
-    this._popupCaption = this._imagePopup.querySelector(
-      ".popup__image-caption"
-    );
-    this._closeButton = this._imagePopup.querySelector(
-      ".popup__close_type_image"
-    );
+    this._imagePopupInstance = imagePopupInstance;
+    this._popupImage = document.querySelector(".popup__image");
+    this._popupCaption = document.querySelector(".popup__image-caption");
   }
 
   // Get the card template from HTML
@@ -43,11 +35,6 @@ class Card {
       this._handleImageClick();
     });
 
-    // Add close button listener
-    this._closeButton.addEventListener("click", () => {
-      closePopup(this._imagePopup);
-    });
-
     this._likeButton = this._element.querySelector(".element__icono");
     this._likeButton.addEventListener("click", () => this._toggleLike());
 
@@ -61,7 +48,7 @@ class Card {
     this._popupImage.src = this._link;
     this._popupImage.alt = this._name;
     this._popupCaption.textContent = this._name;
-    openPopup(this._imagePopup);
+    this._imagePopupInstance.open(); // Use popup instance method
   }
 
   // Create and return the card element
@@ -82,16 +69,3 @@ class Card {
 }
 //exports
 export { Card };
-// Constants
-// (None in this file)
-
-// DOM elements
-// (None in this file)
-
-// Functions
-// (None outside the class in this file)
-
-// Event listeners
-// (None outside the class in this file)
-
-// Add this function at the end of the file

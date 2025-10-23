@@ -57,12 +57,12 @@
 
 /* Inactive icon */
 .element__icono {
-  background-image: url("../images/elements__corazon.png");
+  background-image: url("../../images/elements__corazon.png");
 }
 
 /* Active icon */
 .element__icono_active {
-  background-image: url("../images/elements__corazon-active.png");
+  background-image: url("../../images/elements__corazon-active.png");
 }
 
 /* Delete button */

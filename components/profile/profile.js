@@ -1,8 +1,5 @@
-import { openPopup, closePopup } from "../../utils/utils.js";
-
 // Profile class: handles user profile display and updates
 class Profile {
-  // Set up the profile
   constructor(selectors) {
     this._selectors = selectors;
     this._initElements();
@@ -13,6 +10,8 @@ class Profile {
   initialize(name, job) {
     this.setUserInfo(name, job);
   }
+
+  setEventListeners() {}
 
   // Update profile information
   setUserInfo(name, job) {
@@ -55,31 +54,20 @@ class Profile {
   _handleEditClick() {
     this._nameInput.value = this._nameElement.textContent;
     this._jobInput.value = this._jobElement.textContent;
-    openPopup(this._popup);
+    this._popup.classList.remove("popup_hidden");
   }
 
   // Handle close button click
   _handleCloseClick() {
-    closePopup(this._popup);
+    this._popup.classList.add("popup_hidden");
   }
 
   // Handle form submission
   _handleFormSubmit(event) {
     event.preventDefault();
     this.setUserInfo(this._nameInput.value, this._jobInput.value);
-    closePopup(this._popup);
+    this._popup.classList.add("popup_hidden");
   }
 }
-//exports
+
 export { Profile };
-// Constants
-// (None in this file)
-
-// DOM elements
-// (None in this file)
-
-// Functions
-// (None outside the class in this file)
-
-// Event listeners
-// (None outside the class in this file)

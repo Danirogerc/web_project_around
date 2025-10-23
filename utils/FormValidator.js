@@ -22,13 +22,6 @@ class FormValidator {
         this.#toggleButtonState();
       });
     });
-
-    this.formElement.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-      if (this.#isFormValid()) {
-        // Form submission logic here
-      }
-    });
   }
 
   #checkInputValidity(inputElement) {
@@ -40,7 +33,12 @@ class FormValidator {
     // Apply specific validation rules based on input name
     const validationRules =
       this.config.validationRules?.[inputElement.name] || [];
-    const isValid = validationRules.every((rule) => rule(inputElement.value));
+
+    // If no validation rules exist, use getErrorMessage for validation
+    const isValid =
+      validationRules.length === 0
+        ? this.#getErrorMessage(inputElement) === "Campo inválido"
+        : validationRules.every((rule) => rule(inputElement.value));
 
     if (isValid) {
       this.#hideInputError(inputElement);
@@ -111,13 +109,15 @@ class FormValidator {
 
     // Add card form validations
     if (this.config.formType === "addCard") {
-      if (inputElement.name === "title") {
+      if (inputElement.name === "cardTitle") {
+        // Changed from "title" to "cardTitle"
         if (value.length < 2) {
           return "El título debe tener al menos 2 caracteres.";
         } else if (value.length > 30) {
           return "El título no puede tener más de 30 caracteres.";
         }
-      } else if (inputElement.name === "link") {
+      } else if (inputElement.name === "cardLink") {
+        // Changed from "link" to "cardLink"
         if (!this.#isValidUrl(value)) {
           return "Por favor, introduzca una URL válida.";
         }
@@ -144,9 +144,13 @@ class FormValidator {
     if (isValid) {
       this.submitButton.disabled = false;
       this.submitButton.classList.remove(this.config.buttonDisabledClass);
+      this.submitButton.style.cursor = "pointer";
+      this.submitButton.style.opacity = "1";
     } else {
       this.submitButton.disabled = true;
       this.submitButton.classList.add(this.config.buttonDisabledClass);
+      this.submitButton.style.cursor = "not-allowed";
+      this.submitButton.style.opacity = "0.6";
     }
   }
 }
@@ -155,7 +159,7 @@ class FormValidator {
 const profileFormConfig = {
   formType: "profile",
   inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button-container",
+  submitButtonSelector: ".popup__button-container", // Keep this as is
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error",
   buttonDisabledClass: "popup__button_disabled",
@@ -164,7 +168,7 @@ const profileFormConfig = {
 const addCardFormConfig = {
   formType: "addCard",
   inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button-container",
+  submitButtonSelector: ".popup__button-container", // Keep this as is
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error",
   buttonDisabledClass: "popup__button_disabled",
