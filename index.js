@@ -1,5 +1,6 @@
 import { Profile } from "./components/profile/profile.js";
 import { Popup } from "./components/popup/popup.js";
+import { PopupWithForm } from "./components/popup/popupwithform.js";
 import { initialCards } from "./data/config.js";
 import { Card } from "./components/card/card.js";
 import { Section } from "./components/section/section.js";
@@ -7,23 +8,50 @@ import { FormValidator, enableValidation } from "./utils/FormValidator.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM loaded"); //Debug check
-  // Initialize Profile
-  const profile = new Profile({
-    nameSelector: ".profile__title",
-    jobSelector: ".profile__subtitle",
-    editButtonSelector: ".profile__edit-button",
-    popupSelector: ".popup_type_edit",
-    formSelector: ".popup__form_type_edit",
-    closeButtonSelector: ".popup__close_type_edit",
-  });
 
   // Function to handle card deletion
   function handleDeleteCard(cardElement) {
     cardElement.remove();
   }
 
+  // Function to handle add card form submission
+  function handleAddCardSubmit(formData) {
+    // Check if form is valid before proceeding
+    if (!formData.cardTitle?.trim() || !formData.cardLink?.trim()) {
+      return; // Stop here if validation fails
+    }
+
+    // Additional check: verify URL is valid
+    try {
+      new URL(formData.cardLink);
+    } catch (e) {
+      return; // Stop here if URL is invalid
+    }
+
+    // Only proceed if validation passes
+    const newCard = {
+      name: formData.cardTitle,
+      link: formData.cardLink,
+    };
+    cardSection.addItem(newCard);
+    addCardPopupInstance.close();
+  }
+
+  // Function to handle edit profile form submission
+  function handleEditProfileSubmit(formData) {
+    profile.setUserInfo(formData.name, formData.work);
+    editProfilePopupInstance.close();
+  }
+
   //CREATE POPUP INSTANCES
-  const addCardPopupInstance = new Popup(".popup_type_add");
+  const addCardPopupInstance = new PopupWithForm(
+    ".popup_type_add",
+    handleAddCardSubmit
+  );
+  const editProfilePopupInstance = new PopupWithForm(
+    ".popup_type_edit",
+    handleEditProfileSubmit
+  );
   const imagePopupInstance = new Popup(".popup_type_image");
 
   //CREATE THE RENDERER FUNCTION
@@ -46,41 +74,32 @@ document.addEventListener("DOMContentLoaded", () => {
     ".elements"
   );
 
+  // Initialize Profile
+  const profile = new Profile({
+    nameSelector: ".profile__title",
+    jobSelector: ".profile__subtitle",
+  });
+
   // Event listeners
   const addCardButton = document.querySelector(".profile__add-button");
-  const addCardForm = document.querySelector(".popup__form_type_add");
+  const editProfileButton = document.querySelector(".profile__edit-button");
 
   // Open add card popup
   addCardButton.addEventListener("click", () => addCardPopupInstance.open());
 
-  // Add card form submission
-  addCardForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+  // Open edit profile popup
+  editProfileButton.addEventListener("click", () => {
+    // Get current user info using the new method
+    const currentUserInfo = profile.getUserInfo();
 
-    // Check if form is valid before proceeding
-    const titleInput = addCardForm.querySelector(".popup__input-name");
-    const linkInput = addCardForm.querySelector(".popup__input-link");
+    // Pre-fill the form with current values
+    const nameInput = document.querySelector(".popup__input-name");
+    const workInput = document.querySelector(".popup__input-work");
 
-    // Don't submit if inputs are empty or invalid
-    if (!titleInput.value.trim() || !linkInput.value.trim()) {
-      return; // Stop here if validation fails
-    }
+    nameInput.value = currentUserInfo.name;
+    workInput.value = currentUserInfo.job;
 
-    // Additional check: verify URL is valid
-    try {
-      new URL(linkInput.value);
-    } catch (e) {
-      return; // Stop here if URL is invalid
-    }
-
-    // Only proceed if validation passes
-    const newCard = {
-      name: titleInput.value,
-      link: linkInput.value,
-    };
-    cardSection.addItem(newCard);
-    addCardPopupInstance.close();
-    addCardForm.reset();
+    editProfilePopupInstance.open();
   });
 
   // Render initial cards using Section
@@ -91,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Set up popup event listeners
   addCardPopupInstance.setEventListeners();
+  editProfilePopupInstance.setEventListeners();
   imagePopupInstance.setEventListeners();
 
   //enable validation
