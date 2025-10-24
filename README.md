@@ -4,7 +4,7 @@ Bienvenido al repositorio de la página web para la **tripleten web project arou
 
 ## Descripción
 
-Este repositorio contiene el código fuente de la página del proyecto "web_project_around" del Sprint 8 del Tripleten Software Engineering Bootcamp
+Este repositorio contiene el código fuente de la página del proyecto "web_project_around" del Sprint 11 del Tripleten Software Engineering Bootcamp
 
 ## Características
 
@@ -49,4 +49,4 @@ Esta página web ostenta una licencia propia del autor. Se prohíbe su utilizaci
 
 ---
 
-© 2024 Daniel Roger. Todos los derechos reservados.
+© 2025 Daniel Roger. Todos los derechos reservados.

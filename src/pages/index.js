@@ -1,11 +1,11 @@
-import { Profile } from "./components/profile/profile.js";
-import { Popup } from "./components/popup/popup.js";
-import { PopupWithForm } from "./components/popup/popupwithform.js";
-import { PopupWithImage } from "./components/popup/popupwithimage.js";
-import { initialCards } from "./data/config.js";
-import { Card } from "./components/card/card.js";
-import { Section } from "./components/section/section.js";
-import { FormValidator, enableValidation } from "./utils/formvalidator.js";
+import { Profile } from "../components/profile/profile.js";
+import { Popup } from "../components/popup/popup.js";
+import { PopupWithForm } from "../components/popup/popupwithform.js";
+import { PopupWithImage } from "../components/popup/popupwithimage.js";
+import { initialCards } from "../data/config.js";
+import { Card } from "../components/card/card.js";
+import { Section } from "../components/section/section.js";
+import { FormValidator, enableValidation } from "../utils/formvalidator.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM loaded"); //Debug check
