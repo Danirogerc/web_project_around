@@ -2,14 +2,12 @@
 // Set up the card with its data and functionality
 // metodos privados
 class Card {
-  constructor(data, templateSelector, handleDeleteCard, imagePopupInstance) {
+  constructor(data, templateSelector, handleDeleteCard, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._handleDeleteCard = handleDeleteCard;
-    this._imagePopupInstance = imagePopupInstance;
-    this._popupImage = document.querySelector(".popup__image");
-    this._popupCaption = document.querySelector(".popup__image-caption");
+    this._handleCardClick = handleCardClick;
   }
 
   // Get the card template from HTML
@@ -32,7 +30,7 @@ class Card {
     // Add image click handler
     const cardImage = this._element.querySelector(".element__image");
     cardImage.addEventListener("click", () => {
-      this._handleImageClick();
+      this._handleCardClick({ name: this._name, link: this._link });
     });
 
     this._likeButton = this._element.querySelector(".element__icono");
@@ -42,13 +40,6 @@ class Card {
     this._deleteButton.addEventListener("click", () => {
       this._handleDeleteCard(this._element);
     });
-  }
-
-  _handleImageClick() {
-    this._popupImage.src = this._link;
-    this._popupImage.alt = this._name;
-    this._popupCaption.textContent = this._name;
-    this._imagePopupInstance.open(); // Use popup instance method
   }
 
   // Create and return the card element

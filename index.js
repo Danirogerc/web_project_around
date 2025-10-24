@@ -1,6 +1,7 @@
 import { Profile } from "./components/profile/profile.js";
 import { Popup } from "./components/popup/popup.js";
 import { PopupWithForm } from "./components/popup/popupwithform.js";
+import { PopupWithImage } from "./components/popup/popupwithimage.js";
 import { initialCards } from "./data/config.js";
 import { Card } from "./components/card/card.js";
 import { Section } from "./components/section/section.js";
@@ -12,6 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to handle card deletion
   function handleDeleteCard(cardElement) {
     cardElement.remove();
+  }
+
+  // Function to handle card click (open image popup)
+  function handleCardClick(cardData) {
+    imagePopupInstance.open(cardData);
   }
 
   // Function to handle add card form submission
@@ -52,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ".popup_type_edit",
     handleEditProfileSubmit
   );
-  const imagePopupInstance = new Popup(".popup_type_image");
+  const imagePopupInstance = new PopupWithImage(".popup_type_image");
 
   //CREATE THE RENDERER FUNCTION
   function createCardElement(cardData) {
@@ -60,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cardData,
       ".element__template",
       handleDeleteCard,
-      imagePopupInstance
+      handleCardClick
     );
     return card.generateCard();
   }
