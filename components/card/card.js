@@ -32,6 +32,11 @@ class Card {
     cardImage.addEventListener("click", () => {
       this._handleCardClick({ name: this._name, link: this._link });
     });
+    //if url not image
+    cardImage.addEventListener("error", () => {
+      cardImage.onerror = null;
+      cardImage.src = "./images/elements__photo-error.jpeg";
+    });
 
     this._likeButton = this._element.querySelector(".element__icono");
     this._likeButton.addEventListener("click", () => this._toggleLike());
