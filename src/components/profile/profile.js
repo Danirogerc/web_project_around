@@ -7,15 +7,15 @@ class Profile {
   }
 
   // Initialize profile with name and job
-  initialize(name, job) {
-    this._userInfo.setUserInfo(name, job);
+  initialize({ name, job, avatar }) {
+    this._userInfo.setUserInfo({ name, job, avatar });
   }
 
   setEventListeners() {}
 
   // Update profile information
-  setUserInfo(name, job) {
-    this._userInfo.setUserInfo(name, job);
+  setUserInfo(name, job, avatar) {
+    this._userInfo.setUserInfo({ name, job, avatar });
   }
 
   // Get current user information
