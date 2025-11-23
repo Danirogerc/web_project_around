@@ -205,6 +205,62 @@
       </div>
     </div>
 
+    <!-- Popup for Confirming Deletion -->
+    <div class="popup popup_type_confirm popup_hidden">
+      <div class="popup__overlay"></div>
+      <div class="popup__container" role="dialog">
+        <h3 class="popup__title">¿Estás seguro?</h3>
+        <form class="popup__form popup__form_type_confirm" novalidate>
+          <button class="popup__button-container" type="submit">
+            <span class="popup__button">Sí</span>
+          </button>
+        </form>
+        <button
+          class="popup__close popup__close_type_confirm"
+          type="button"
+          aria-label="Cerrar"
+        >
+          <img
+            class="popup__close-img"
+            src="./images/popup__cerrar.png"
+            alt="Cerrar"
+          />
+        </button>
+      </div>
+    </div>
+
+    <!-- Popup for Editing Avatar -->
+    <div class="popup popup_type_avatar popup_hidden">
+      <div class="popup__overlay"></div>
+      <div class="popup__container" role="dialog">
+        <h3 class="popup__title">Cambiar foto de perfil</h3>
+        <form class="popup__form popup__form_type_avatar" novalidate>
+          <input
+            class="popup__input popup__input-avatar"
+            type="url"
+            name="avatar"
+            placeholder="Enlace a la imagen"
+            required
+          />
+          <span class="popup__error popup__error_type_avatar"></span>
+          <button class="popup__button-container" type="submit">
+            <span class="popup__button">Guardar</span>
+          </button>
+        </form>
+        <button
+          class="popup__close popup__close_type_avatar"
+          type="button"
+          aria-label="Cerrar"
+        >
+          <img
+            class="popup__close-img"
+            src="./images/popup__cerrar.png"
+            alt="Cerrar"
+          />
+        </button>
+      </div>
+    </div>
+
     <!-- JavaScript Module -->
     <script src="./pages/index.js" type="module"></script>
   </body>

@@ -5,9 +5,12 @@ class PopupWithForm extends Popup {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popupElement.querySelector(".popup__form");
+    // Select the submit button
+    this._submitButton = this._form.querySelector(".popup__button");
+    // Store original text to restore it later
+    this._submitButtonText = this._submitButton.textContent;
   }
 
-  // Private method to collect data from all input fields
   _getInputValues() {
     const inputList = this._form.querySelectorAll(".popup__input");
     const formValues = {};
@@ -19,21 +22,27 @@ class PopupWithForm extends Popup {
     return formValues;
   }
 
-  // Override parent's setEventListeners method
   setEventListeners() {
-    super.setEventListeners(); // Call parent method first
+    super.setEventListeners();
 
-    // Add form submit event listener
     this._form.addEventListener("submit", (event) => {
       event.preventDefault();
       this._handleFormSubmit(this._getInputValues());
     });
   }
 
-  // Override parent's close method to reset form
   close() {
-    super.close(); // Call parent method first
-    this._form.reset(); // Reset the form
+    super.close();
+    this._form.reset();
+  }
+
+  // New UX method: Toggle loading state
+  renderLoading(isLoading, loadingText = "Guardando...") {
+    if (isLoading) {
+      this._submitButton.textContent = loadingText;
+    } else {
+      this._submitButton.textContent = this._submitButtonText;
+    }
   }
 }
 

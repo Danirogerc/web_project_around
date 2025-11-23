@@ -1,124 +1,187 @@
 import { Profile } from "../components/profile/profile.js";
-import { Popup } from "../components/popup/popup.js";
 import { PopupWithForm } from "../components/popup/popupwithform.js";
 import { PopupWithImage } from "../components/popup/popupwithimage.js";
-import { initialCards } from "../data/config.js";
+import { PopupWithConfirmation } from "../components/popup/popupwithconfirmation.js";
 import { Card } from "../components/card/card.js";
 import { Section } from "../components/section/section.js";
 import { FormValidator, enableValidation } from "../utils/formvalidator.js";
+import { api } from "../api/api.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOM loaded"); //Debug check
+  let userId;
 
-  // Function to handle card deletion
-  function handleDeleteCard(cardElement) {
-    cardElement.remove();
-  }
-
-  // Function to handle card click (open image popup)
-  function handleCardClick(cardData) {
-    imagePopupInstance.open(cardData);
-  }
-
-  // Function to handle add card form submission
-  function handleAddCardSubmit(formData) {
-    // Check if form is valid before proceeding
-    if (!formData.cardTitle?.trim() || !formData.cardLink?.trim()) {
-      return; // Stop here if validation fails
-    }
-
-    // Additional check: verify URL is valid
-    try {
-      new URL(formData.cardLink);
-    } catch (e) {
-      return; // Stop here if URL is invalid
-    }
-
-    // Only proceed if validation passes
-    const newCard = {
-      name: formData.cardTitle,
-      link: formData.cardLink,
-    };
-    cardSection.addItem(newCard);
-    addCardPopupInstance.close();
-  }
-
-  // Function to handle edit profile form submission
-  function handleEditProfileSubmit(formData) {
-    profile.setUserInfo(formData.name, formData.work);
-    editProfilePopupInstance.close();
-  }
-
-  //CREATE POPUP INSTANCES
-  const addCardPopupInstance = new PopupWithForm(
-    ".popup_type_add",
-    handleAddCardSubmit
-  );
-  const editProfilePopupInstance = new PopupWithForm(
-    ".popup_type_edit",
-    handleEditProfileSubmit
-  );
+  // --- 1. POPUP INSTANCES ---
   const imagePopupInstance = new PopupWithImage(".popup_type_image");
+  imagePopupInstance.setEventListeners();
 
-  //CREATE THE RENDERER FUNCTION
-  function createCardElement(cardData) {
-    const card = new Card(
-      cardData,
-      ".element__template",
-      handleDeleteCard,
-      handleCardClick
-    );
-    return card.generateCard();
-  }
+  const confirmPopupInstance = new PopupWithConfirmation(".popup_type_confirm");
+  confirmPopupInstance.setEventListeners();
 
-  // Initialize Section for cards
+  // --- 2. SECTION & PROFILE INSTANCES ---
   const cardSection = new Section(
     {
-      items: initialCards,
+      items: [], // Will be filled by API
       renderer: createCardElement,
     },
     ".elements"
   );
 
-  // Initialize Profile
   const profile = new Profile({
     nameSelector: ".profile__title",
     jobSelector: ".profile__subtitle",
+    avatarSelector: ".profile__avatar-img",
   });
 
-  // Event listeners
-  const addCardButton = document.querySelector(".profile__add-button");
-  const editProfileButton = document.querySelector(".profile__edit-button");
+  // --- 3. HANDLERS ---
 
-  // Open add card popup
+  // Create Card Element
+  function createCardElement(cardData) {
+    const card = new Card(
+      cardData,
+      ".element__template",
+      handleDeleteCardClick, // Open confirm popup
+      handleCardClick, // Open image popup
+      handleLikeClick, // Toggle like
+      userId // Current User ID
+    );
+    return card.generateCard();
+  }
+
+  // Handle Card Image Click
+  function handleCardClick(cardData) {
+    imagePopupInstance.open(cardData);
+  }
+
+  // Handle Like Click
+  function handleLikeClick(card) {
+    const isLiked = card.isLiked();
+    const apiCall = isLiked
+      ? api.removeLike(card.getId())
+      : api.addLike(card.getId());
+
+    apiCall
+      .then((updatedCardData) => {
+        card.setLikes(updatedCardData.likes);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  // Handle Delete Icon Click (Opens Confirmation)
+  function handleDeleteCardClick(card) {
+    confirmPopupInstance.open();
+    confirmPopupInstance.setAction(() => {
+      api
+        .deleteCard(card.getId())
+        .then(() => {
+          card._element.remove(); // Remove from DOM
+          confirmPopupInstance.close();
+        })
+        .catch((err) => console.log(err));
+    });
+  }
+
+  // Handle "Add Card" Form Submit
+  function handleAddCardSubmit(formData) {
+    console.log("Attempting to add card:", formData); // DEBUG
+    addCardPopupInstance.renderLoading(true);
+    api
+      .addCard({ name: formData.cardTitle, link: formData.cardLink })
+      .then((newCardData) => {
+        console.log("Card added successfully:", newCardData); // DEBUG
+        cardSection.addItem(newCardData);
+        addCardPopupInstance.close();
+      })
+      .catch((err) => {
+        console.error("Error adding card:", err); // DEBUG
+      })
+      .finally(() => addCardPopupInstance.renderLoading(false));
+  }
+
+  // Handle "Edit Profile" Form Submit
+  function handleEditProfileSubmit(formData) {
+    editProfilePopupInstance.renderLoading(true);
+    api
+      .updateUserInfo({ name: formData.name, about: formData.work })
+      .then((userData) => {
+        profile.setUserInfo(userData.name, userData.about, userData.avatar);
+        editProfilePopupInstance.close();
+      })
+      .catch((err) => console.log(err))
+      .finally(() => editProfilePopupInstance.renderLoading(false));
+  }
+
+  // Handle "Avatar" Form Submit
+  function handleAvatarSubmit(formData) {
+    avatarPopupInstance.renderLoading(true);
+    api
+      .updateAvatar({ avatar: formData.avatar })
+      .then((userData) => {
+        profile.setUserInfo(userData.name, userData.about, userData.avatar);
+        avatarPopupInstance.close();
+      })
+      .catch((err) => console.log(err))
+      .finally(() => avatarPopupInstance.renderLoading(false));
+  }
+
+  // --- 4. POPUP WITH FORMS ---
+
+  const addCardPopupInstance = new PopupWithForm(
+    ".popup_type_add",
+    handleAddCardSubmit
+  );
+  addCardPopupInstance.setEventListeners();
+
+  const editProfilePopupInstance = new PopupWithForm(
+    ".popup_type_edit",
+    handleEditProfileSubmit
+  );
+  editProfilePopupInstance.setEventListeners();
+
+  const avatarPopupInstance = new PopupWithForm(
+    ".popup_type_avatar",
+    handleAvatarSubmit
+  );
+  avatarPopupInstance.setEventListeners();
+
+  // --- 5. EVENT LISTENERS FOR BUTTONS ---
+
+  const addCardButton = document.querySelector(".profile__add-button");
   addCardButton.addEventListener("click", () => addCardPopupInstance.open());
 
-  // Open edit profile popup
+  const editProfileButton = document.querySelector(".profile__edit-button");
   editProfileButton.addEventListener("click", () => {
-    // Get current user info using the new method
     const currentUserInfo = profile.getUserInfo();
-
-    // Pre-fill the form with current values
     const nameInput = document.querySelector(".popup__input-name");
     const workInput = document.querySelector(".popup__input-work");
-
     nameInput.value = currentUserInfo.name;
     workInput.value = currentUserInfo.job;
-
     editProfilePopupInstance.open();
   });
 
-  // Render initial cards using Section
-  cardSection.renderItems();
+  const avatarButton = document.querySelector(".profile__avatar"); // Assuming wrapper
+  avatarButton.addEventListener("click", () => avatarPopupInstance.open());
 
-  // Set up profile
-  profile.initialize("Jacques Cousteau", "Explorador");
+  // --- 6. INITIALIZATION ---
 
-  // Set up popup event listeners
-  addCardPopupInstance.setEventListeners();
-  editProfilePopupInstance.setEventListeners();
-  imagePopupInstance.setEventListeners();
-
-  //enable validation
   enableValidation();
+
+  // Fetch User Data and Cards
+  api
+    .getAppData()
+    .then(([userData, cardsData]) => {
+      // 1. Set User ID
+      userId = userData._id;
+
+      // 2. Set Profile Data
+      profile.initialize({
+        name: userData.name,
+        about: userData.about,
+        avatar: userData.avatar,
+      });
+
+      // 3. Render Cards
+      cardSection.setItems(cardsData);
+      cardSection.renderItems();
+    })
+    .catch((err) => console.log(err));
 });

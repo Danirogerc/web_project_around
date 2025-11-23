@@ -110,14 +110,21 @@ class FormValidator {
     // Add card form validations
     if (this.config.formType === "addCard") {
       if (inputElement.name === "cardTitle") {
-        // Changed from "title" to "cardTitle"
         if (value.length < 2) {
           return "El título debe tener al menos 2 caracteres.";
         } else if (value.length > 30) {
           return "El título no puede tener más de 30 caracteres.";
         }
       } else if (inputElement.name === "cardLink") {
-        // Changed from "link" to "cardLink"
+        if (!this.#isValidUrl(value)) {
+          return "Por favor, introduzca una URL válida.";
+        }
+      }
+    }
+
+    // Avatar form validations
+    if (this.config.formType === "avatar") {
+      if (inputElement.name === "avatar") {
         if (!this.#isValidUrl(value)) {
           return "Por favor, introduzca una URL válida.";
         }
@@ -174,6 +181,15 @@ const addCardFormConfig = {
   buttonDisabledClass: "popup__button_disabled",
 };
 
+const avatarFormConfig = {
+  formType: "avatar",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button-container",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error",
+  buttonDisabledClass: "popup__button_disabled",
+};
+
 function enableValidation() {
   // Profile form validation
   const profileForm = document.querySelector(".popup__form_type_edit");
@@ -187,6 +203,13 @@ function enableValidation() {
   if (addCardForm) {
     const addCardValidator = new FormValidator(addCardFormConfig, addCardForm);
     addCardValidator.enableValidation();
+  }
+
+  // Avatar form validation
+  const avatarForm = document.querySelector(".popup__form_type_avatar");
+  if (avatarForm) {
+    const avatarValidator = new FormValidator(avatarFormConfig, avatarForm);
+    avatarValidator.enableValidation();
   }
 }
 

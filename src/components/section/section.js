@@ -19,5 +19,8 @@ class Section {
     this._container.prepend(element);
     return element;
   }
+  setItems(items) {
+    this._items = items;
+  }
 }
 export { Section };
