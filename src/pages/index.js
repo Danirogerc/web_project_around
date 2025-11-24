@@ -82,18 +82,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Handle "Add Card" Form Submit
   function handleAddCardSubmit(formData) {
-    console.log("Attempting to add card:", formData); // DEBUG
     addCardPopupInstance.renderLoading(true);
     api
       .addCard({ name: formData.cardTitle, link: formData.cardLink })
       .then((newCardData) => {
-        console.log("Card added successfully:", newCardData); // DEBUG
         cardSection.addItem(newCardData);
         addCardPopupInstance.close();
       })
-      .catch((err) => {
-        console.error("Error adding card:", err); // DEBUG
-      })
+      .catch((err) => console.log(err))
       .finally(() => addCardPopupInstance.renderLoading(false));
   }
 
