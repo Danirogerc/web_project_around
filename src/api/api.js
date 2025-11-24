@@ -13,9 +13,26 @@ class Api {
       ...options,
       headers: { ...this._headers, ...(options.headers || {}) },
     };
+
+    //logging
+    console.group(`API Request: ${options.method || "GET"} ${path}`);
+    console.log("Full URL:", `${this._baseUrl}${path}`);
+    console.log("Headers:", opts.headers);
+    if (opts.body) {
+      try {
+        console.log("Body:", JSON.parse(opts.body));
+      } catch (e) {
+        console.log("Body (raw):", opts.body);
+      }
+    }
+    console.groupEnd();
+
     return fetch(`${this._baseUrl}${path}`, opts).then((res) => {
-      if (res.ok) return res.json();
-      return Promise.reject(`Error: ${res.status}`);
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Error: ${res.status}`);
+      }
     });
   }
 

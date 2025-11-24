@@ -178,6 +178,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // 3. Render Cards
       cardSection.setItems(cardsData);
       cardSection.renderItems();
+
+      // Show profile after data loads (remove inline style)
+      const profileSection = document.querySelector(".profile");
+      profileSection.style.opacity = "1";
     })
     .catch((err) => console.log(err));
 });

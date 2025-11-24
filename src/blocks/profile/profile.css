@@ -124,6 +124,16 @@
   height: 24px;
 }
 
+/* Hide profile until data loads */
+.profile {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.profile.loaded {
+  opacity: 1;
+}
+
 /* Responsive styles for smaller screens */
 @media screen and (max-width: 600px) {
   .profile {
