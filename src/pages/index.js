@@ -58,15 +58,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!cardId) return;
 
     const isLiked = card.isLiked();
-    
+
     // 1. Optimistic Update: Toggle immediately visually
     // We simulate the new state (true -> false, false -> true)
     card.setLikes(!isLiked);
 
     // 2. Send Request
-    const apiCall = isLiked
-      ? api.removeLike(cardId)
-      : api.addLike(cardId);
+    const apiCall = isLiked ? api.removeLike(cardId) : api.addLike(cardId);
 
     apiCall
       .then((updatedCardData) => {
@@ -77,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((err) => {
         console.log(err);
         // 4. Revert on Error: If server fails, toggle back to original state
-        card.setLikes(isLiked); 
+        card.setLikes(isLiked);
       });
   }
 
