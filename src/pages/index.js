@@ -54,16 +54,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Handle Like Click
   function handleLikeClick(card) {
+    const cardId = card.getId();
+    if (!cardId) return;
+
     const isLiked = card.isLiked();
+    
+    // 1. Optimistic Update: Toggle immediately visually
+    // We simulate the new state (true -> false, false -> true)
+    card.setLikes(!isLiked);
+
+    // 2. Send Request
     const apiCall = isLiked
-      ? api.removeLike(card.getId())
-      : api.addLike(card.getId());
+      ? api.removeLike(cardId)
+      : api.addLike(cardId);
 
     apiCall
       .then((updatedCardData) => {
-        card.setLikes(updatedCardData.likes);
+        // 3. Confirm with server data (optional, but good for consistency)
+        // The visual state is already correct, but this syncs any metadata (like counts)
+        card.setLikes(updatedCardData.likes || updatedCardData.isLiked);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        // 4. Revert on Error: If server fails, toggle back to original state
+        card.setLikes(isLiked); 
+      });
   }
 
   // Handle Delete Icon Click (Opens Confirmation)
